@@ -23,6 +23,9 @@
 					<Add library="../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/libmysqlclient.a" />
 					<Add library="../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/libxml2.dll.a" />
 					<Add library="../../../../../libxml2-2.7.8.win32/lib/libxml2.lib" />
+					<Add library="../../../../../../../../libxml2-2.7.8.win32/lib/libxml2_a.lib" />
+					<Add library="../../../../../../../../libxml2-2.7.8.win32/lib/libxml2_a_dll.lib" />
+					<Add library="../../../../../../../../libxml2-2.7.8.win32/lib/libxml2.lib" />
 				</Linker>
 			</Target>
 			<Target title="Release">

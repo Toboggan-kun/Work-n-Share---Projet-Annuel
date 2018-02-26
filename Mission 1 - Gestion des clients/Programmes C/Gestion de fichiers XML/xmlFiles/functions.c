@@ -3,7 +3,6 @@
 #include <winsock.h>
 #include <mysql.h>
 #include <winsock2.h>
-#include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 #include <libxml/tree.h>
 #include "header.h"

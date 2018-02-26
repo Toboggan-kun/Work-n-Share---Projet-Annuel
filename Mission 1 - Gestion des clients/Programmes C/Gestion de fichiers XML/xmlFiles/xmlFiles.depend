@@ -196,3 +196,28 @@
 
 1513153300 c:\curl-7.58.0\include\curl\typecheck-gcc.h
 
+1519381523 source:c:\wamp64\www\projet annuel - work'n share\work-n-share---projet-annuel\mission 1 - gestion des clients\programmes c\gestion de fichiers xml\xmlfiles\functions.c
+	<stdio.h>
+	<stdlib.h>
+	<winsock.h>
+	<mysql.h>
+	<winsock2.h>
+	<libxml/encoding.h>
+	<libxml/xmlwriter.h>
+	<libxml/tree.h>
+	"header.h"
+
+1519381523 c:\wamp64\www\projet annuel - work'n share\work-n-share---projet-annuel\mission 1 - gestion des clients\programmes c\gestion de fichiers xml\xmlfiles\header.h
+
+1519381523 source:c:\wamp64\www\projet annuel - work'n share\work-n-share---projet-annuel\mission 1 - gestion des clients\programmes c\gestion de fichiers xml\xmlfiles\main.c
+	<stdio.h>
+	<stdlib.h>
+	<winsock2.h>
+	<mysql.h>
+	<winsock2.h>
+	<libxml/encoding.h>
+	<libxml/xmlwriter.h>
+	<libxml/tree.h>
+	<curl.h>
+	"header.h"
+

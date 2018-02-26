@@ -3,11 +3,8 @@
 #include <stdlib.h>
 #include <winsock2.h>
 #include <mysql.h>
-#include <winsock2.h>
-#include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 #include <libxml/tree.h>
-#include <curl.h>
 #include "header.h"
 
 
