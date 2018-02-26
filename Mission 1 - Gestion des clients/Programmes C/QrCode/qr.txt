@@ -1,0 +1,9 @@
+fputs ligne 72 avec "##" et "  "
+remplacer # par pixel noir et espace par pixel blanc
+trouver une librairie de conversion en image
+
+changer le qrcode que je reçois en fichier texte
+
+convertir le fichier texte en image
+
+sdl 1.2 & sdl fx

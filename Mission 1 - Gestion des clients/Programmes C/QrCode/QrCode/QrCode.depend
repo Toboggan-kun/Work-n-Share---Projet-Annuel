@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1519219399 source:c:\users\noha west\desktop\qrcode\qrcode\main.c
+	<stdbool.h>
+	<stddef.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"qrcodegen.h"
+	"qrcodegen.c"
+
+1519217293 c:\users\noha west\desktop\qrcode\qrcode\qrcodegen.c
+	<assert.h>
+	<limits.h>
+	<stdlib.h>
+	<string.h>
+	"qrcodegen.h"
+
+1175929546 c:\users\noha west\desktop\qrcode\qrcode\qdbmp.h
+	<stdio.h>
+
+1519207624 source:c:\users\noha west\desktop\qrcode\qrcode\qdbmp.c
+	"qdbmp.h"
+	<stdlib.h>
+	<string.h>
+
