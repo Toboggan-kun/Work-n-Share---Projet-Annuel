@@ -20,12 +20,11 @@
 					<Add directory="../../../../../curl-7.58.0/lib" />
 				</Compiler>
 				<Linker>
+					<Add option="-lws2_32" />
 					<Add library="../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/libmysqlclient.a" />
 					<Add library="../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/libxml2.dll.a" />
 					<Add library="../../../../../libxml2-2.7.8.win32/lib/libxml2.lib" />
-					<Add library="../../../../../../../../libxml2-2.7.8.win32/lib/libxml2_a.lib" />
-					<Add library="../../../../../../../../libxml2-2.7.8.win32/lib/libxml2_a_dll.lib" />
-					<Add library="../../../../../../../../libxml2-2.7.8.win32/lib/libxml2.lib" />
+					<Add library="../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/libws2_32.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">

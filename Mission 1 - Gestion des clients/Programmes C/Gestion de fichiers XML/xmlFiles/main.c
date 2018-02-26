@@ -3,10 +3,11 @@
 #include <stdlib.h>
 #include <winsock2.h>
 #include <mysql.h>
+#include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
-#include <libxml/tree.h>
+#include <libxml/xmlreader.h>
+#include <libxml/parser.h>
 #include "header.h"
-
 
 int main(int argc, char ** argv){
 
@@ -18,20 +19,19 @@ int main(int argc, char ** argv){
     int           namelenght = 0;
     int           datelenght = 0;
     int           i = 0;
-
-    //SOCKET FTP
-    SOCKET sock;
-    SOCKADDR_IN sin;
-    sin.sin_addr.s_addr	= inet_addr("127.0.0.1");
-    sin.sin_family		= AF_INET;
-    sin.sin_port		= htons(4148);
-    sock = socket(AF_INET,SOCK_STREAM,0);
-    bind(sock, (SOCKADDR *)&sin, sizeof(sin));
+    char          mmaa[4];
+    char          jj[2];
 
     //MYSQL
     MYSQL       *mysql;
     MYSQL_RES   *result = NULL;
     MYSQL_ROW   row;
+
+    //XML
+    const char *pattern = "emailCustomer";
+    xmlDoc *doc = NULL;
+    xmlTextReaderPtr readerPtr;
+    xmlNode *root = NULL;
 
 
     char request[150];
@@ -40,21 +40,16 @@ int main(int argc, char ** argv){
 
     if(mysql_real_connect(mysql, "127.0.0.1", "root","", "worknshare", 0, NULL, 0)){
 
-        sprintf(request, "SELECT * FROM user WHERE idUser = \'%d\'", qrcode); ///!\
-
-        //printf("\nqrcode = %s", qrcode);
-
+        sprintf(request, "SELECT * FROM user WHERE idUser = \'%d\'", qrcode);
         mysql_query(mysql,request);
         result = mysql_use_result(mysql);
         while((row = mysql_fetch_row(result))){
-
             sprintf(data.idUser, "%s", row[0]);
             sprintf(data.name, "%s", row[1]);
             sprintf(data.surname, "%s", row[2]);
             sprintf(data.mail, "%s", row[3]);
-
         }
-        sprintf(request, "SELECT * FROM booking WHERE idUser = \'%d\'", qrcode); ///!\
+        sprintf(request, "SELECT * FROM booking WHERE idUser = \'%d\'", qrcode);
 
         mysql_query(mysql,request);
         result = mysql_use_result(mysql);
@@ -62,16 +57,14 @@ int main(int argc, char ** argv){
             sprintf(data.idBooking, "%s", row[0]);
             sprintf(data.datetime, "%s", row[4]);
             sprintf(data.idOpenspace, "%s", row[2]);
-
         }
 
-        sprintf(request, "SELECT * FROM openspace WHERE idOpenSpace = \'%s\'", data.idOpenspace); ///!\
+        sprintf(request, "SELECT * FROM openspace WHERE idOpenSpace = \'%s\'", data.idOpenspace);
 
         mysql_query(mysql,request);
         result = mysql_use_result(mysql);
         while((row = mysql_fetch_row(result))){
             sprintf(data.openspaceName, "%s", row[1]);
-
         }
 
         idlenght = strlen(data.idBooking);
@@ -95,16 +88,25 @@ int main(int argc, char ** argv){
         }
 
         sprintf(xmlFileName2, "%s.xml", xmlFileName);
-        xmlWriterFilename(xmlFileName2, data);
-        //createDirectory(data);
+        xmlWriterFilename(xmlFileName2, data, 0);
+        i = strlen(xmlFileName2);
+        printf("i = %d", xmlFileName2);
+        doc = xmlReadFile(xmlFileName2, NULL, 0);
+        root = xmlDocGetRootElement(doc);
+        getContent(root, data);
+        //Récupérer le jour JJ pour nommer le fichier XML après concaténation
 
+
+        xmlFreeDoc(doc);
         free(xmlFileName2);
         free(xmlFileName);
 
 
     }else{
-        printf("\nEchoue");
+        printf("\nCannot connect to the database");
     }
-
+    xmlCleanupParser();
+    xmlMemoryDump();
+    //WSACleanup();
     return 0;
 }
