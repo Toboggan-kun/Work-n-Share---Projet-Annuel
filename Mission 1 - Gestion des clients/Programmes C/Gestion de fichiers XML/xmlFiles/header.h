@@ -13,7 +13,6 @@ void addXmlExtension(char *arrayName, int arrayLenght);
 void xmlWriterFilename(const char *uri, struct Data data, int setFlag);
 void addXmlExtension(char *arrayName, int arrayLenght);
 void readXMLFile(const char *fileName);
-void getContent( xmlNode* root, struct Data data);
-void createFinalXMLFile(const char *uri, struct Data data);
-//void createDirectory(struct Data data);
+xmlDocPtr parseDoc(char *fileName, struct Data data);
+void createDirectory(struct Data data);
 

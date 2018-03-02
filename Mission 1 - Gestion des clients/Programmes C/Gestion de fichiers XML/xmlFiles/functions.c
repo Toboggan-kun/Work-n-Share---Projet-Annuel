@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include <winsock2.h>
 #include <mysql.h>
-#include <libxml/encoding.h>
+#include <libxml/xmlmemory.h>
 #include <libxml/xmlwriter.h>
 #include <libxml/xmlreader.h>
 #include <libxml/parser.h>
+#include <libxml/xmlmemory.h>
 #include "header.h"
 
 void xmlWriterFilename(const char *uri, struct Data data, int setFlag){
@@ -22,10 +23,6 @@ void xmlWriterFilename(const char *uri, struct Data data, int setFlag){
 
     if(setFlag == 1){
         xmlTextWriterStartElement(writer, BAD_CAST "customers");
-        xmlTextWriterStartElement(writer, BAD_CAST "application");
-            xmlTextWriterWriteFormatElement(writer, BAD_CAST "name", "%s", "Work'n Share");
-            xmlTextWriterWriteFormatElement(writer, BAD_CAST "version", "%s", "1.0");
-        xmlTextWriterEndElement(writer);
     }
     xmlTextWriterStartElement(writer, BAD_CAST "customer");
         xmlTextWriterWriteFormatElement(writer, BAD_CAST "nameCustomer", "%s", data.name);
@@ -41,7 +38,7 @@ void xmlWriterFilename(const char *uri, struct Data data, int setFlag){
             xmlTextWriterWriteFormatElement(writer, BAD_CAST "dateTime", "%s", data.datetime);
         xmlTextWriterEndElement(writer);
     xmlTextWriterEndElement(writer);
-
+    xmlTextWriterEndElement(writer);
     if(setFlag == 1){
         //</customers>
         xmlTextWriterEndElement(writer);
@@ -50,28 +47,6 @@ void xmlWriterFilename(const char *uri, struct Data data, int setFlag){
 
 }
 
-void getContent(xmlNode* root, struct Data data){
-    xmlNode* current = NULL;
-    current = root;
-    //char *arrayData[][];
-
-    /*sprintf(data.name, "%s", (const char*)xmlNodeGetContent(current));
-    sprintf(data.surname, "%s", (const char*)xmlNodeGetContent(current));
-    sprintf(data.mail, "%s", (const char*)xmlNodeGetContent(current));
-    sprintf(data.datetime, "%s", (const char*)xmlNodeGetContent(current));
-    sprintf(data.idBooking, "%s", (const char*)xmlNodeGetContent(current));
-    sprintf(data.idOpenspace, "%s", (const char*)xmlNodeGetContent(current));
-    sprintf(data.openspaceName, "%s", (const char*)xmlNodeGetContent(current));*/
-
-    printf("\n%s %s %s %s %s %s %s\n", data.name, data.surname, data.mail, data.datetime, data.idBooking, data.idOpenspace, data.openspaceName);
-    for(current = root; current != NULL; current = current->next){
-        if(current->type == XML_ELEMENT_NODE)
-            printf( "node type: %s\n", current->name );
-        if(strcmp((char*)current->name, (char*)current->name) == 0){
-            printf( "%s\n", (const char*)xmlNodeGetContent(current));
-        }
-    }
-}
 void readXMLFile(const char *fileName){
 
     xmlTextReaderPtr reader;
@@ -85,41 +60,87 @@ void readXMLFile(const char *fileName){
 
 }
 
-void createFinalXMLFile(const char *uri, struct Data data){
 
-    const char          *xmlFinalFileName;
-    xmlTextReaderPtr    reader;
-    xmlTextWriterPtr    writer;
-    writer = xmlNewTextWriterFilename(uri, 0);
-
-    reader = xmlReaderForFile(uri, NULL, 0);
-    if(reader == NULL){
-        printf("\nCe fichier XML n'existe pas! Je peux donc créer un nouveau fichier");
-        char jj[2];
-        jj[0] = data.datetime[8];
-        jj[1] = data.datetime[9];
-        jj[2] = '\0';
-        printf("JJ = %s", jj);
-        sprintf(xmlFinalFileName, "%s.xml", jj);
-        xmlWriterFilename(xmlFinalFileName, data, 1);
+xmlDocPtr parseDoc(char *fileName, struct Data data) {
+    xmlDocPtr doc;
+    xmlNodePtr cur;
+    doc = xmlParseFile(fileName);
+    if(doc == NULL) {
+        fprintf(stderr,"Document not parsed successfully. \n");
+        return (NULL);
+    }
+    cur = xmlDocGetRootElement(doc);
+    if(cur == NULL) {
+        fprintf(stderr,"empty document\n");
+        xmlFreeDoc(doc);
+        return (NULL);
+    }
+    printf("\ncurrentName = %s", cur->name);
+    if(strcmp((char*)cur->name, (const xmlChar *) "customers") != 0) {
+        fprintf(stderr,"document of the wrong type, root node != customers");
+        xmlFreeDoc(doc);
+        return (NULL);
     }else{
-        printf("\nCe fichier XML existe! Je ne peux pas créer un nouveau fichier");
+        printf("\nJe parse le fichier!\n");
+        xmlNewTextChild(cur, NULL, "customer", NULL);
+
+    }
+    cur = cur->last;
+    if(strcmp((char*)cur->name, (const xmlChar *) "customer") != 0) {
+        fprintf(stderr,"document of the wrong type, root node != customer");
+        xmlFreeDoc(doc);
+        return (NULL);
+    }else{
+
+        printf("\nJe parse le fichier!\n");
+        xmlNewTextChild(cur, NULL, "nameCustomer", data.name);
+        xmlNewTextChild(cur, NULL, "surnameCustomer", data.surname);
+        xmlNewTextChild(cur, NULL, "emailCustomer", data.mail);
+        xmlNewTextChild(cur, NULL, "booking", NULL);
+    }
+    cur = cur->last;
+    if(strcmp((char*)cur->name, (const xmlChar *) "booking") != 0) {
+        fprintf(stderr,"document of the wrong type, root node != booking");
+        xmlFreeDoc(doc);
+        return (NULL);
+    }else{
+
+        printf("\nJe parse le fichier!\n");
+        if(data.idBooking == 1){
+            xmlNewTextChild(cur, NULL, "exit", NULL);
+        }else{
+            xmlNewTextChild(cur, NULL, "entrance", NULL);
+        }
+        cur = cur->last;
+        xmlNewTextChild(cur, NULL, "idBooking", data.idBooking);
+        xmlNewTextChild(cur, NULL, "dateTime", data.datetime);
+
     }
 
+    return(doc);
 }
 
-/*void createDirectory(struct Data data){
+void createDirectory(struct Data data){
     int     i = 0;
     int     length = 0;
-    char    mmyy[4];
+    int     length2 = 0;
+    char    *mmyy = NULL;
+    char    *path = "C:\\wamp64\\www\\Projet Annuel - Work'n Share\\Gestion fichiers XML\\xmlFiles\\";
     char    *directoryPath;
 
-    length = strlen(data.datetime);
+    mmyy = malloc(sizeof(char) * 4);
+    directoryPath = malloc(sizeof(char) * (strlen(path) + strlen(mmyy)));
+
     mmyy[2] = data.datetime[2];
     mmyy[3] = data.datetime[3];
     mmyy[0] = data.datetime[5];
     mmyy[1] = data.datetime[6];
-    //system("md %s", mmyy);
-    CreateDirectory(("C:\\wamp64\\www\\Projet Annuel - Work'n Share\\Gestion fichiers XML\\xmlFiles\\" + mmyy), NULL);
-} //A REVOIR APRES L'ENVOI DU FICHIER VIA SOCKET FTP*/
+    mmyy[4] = '\0';
+
+    sprintf(directoryPath, "%s%s", path, mmyy);
+
+    CreateDirectory(directoryPath, NULL);
+    free(directoryPath);
+    free(mmyy);
+}
 

@@ -1,26 +1,28 @@
 # depslib dependency file v1.0
-1519665498 source:c:\wamp64\www\projet annuel - work'n share\gestion fichiers xml\xmlfiles\main.c
+1519962076 source:c:\wamp64\www\projet annuel - work'n share\gestion fichiers xml\xmlfiles\main.c
 	<stdio.h>
 	<stdlib.h>
 	<winsock2.h>
 	<mysql.h>
-	<libxml/encoding.h>
+	<libxml/xmlmemory.h>
 	<libxml/xmlwriter.h>
 	<libxml/xmlreader.h>
 	<libxml/parser.h>
+	<libxml/xmlmemory.h>
 	"header.h"
 
 1519065370 c:\wamp64\www\projet annuel - work'n share\gestion fichiers xml\xmlfiles\prototypes.h
 
-1519676393 source:c:\wamp64\www\projet annuel - work'n share\gestion fichiers xml\xmlfiles\functions.c
+1519963317 source:c:\wamp64\www\projet annuel - work'n share\gestion fichiers xml\xmlfiles\functions.c
 	<stdio.h>
 	<stdlib.h>
 	<winsock2.h>
 	<mysql.h>
-	<libxml/encoding.h>
+	<libxml/xmlmemory.h>
 	<libxml/xmlwriter.h>
 	<libxml/xmlreader.h>
 	<libxml/parser.h>
+	<libxml/xmlmemory.h>
 	"header.h"
 
 1288882724 c:\libxml2-2.7.8.win32\include\libxml\parser.h
@@ -158,7 +160,7 @@
 	<libxml/list.h>
 	<libxml/xmlstring.h>
 
-1519676383 c:\wamp64\www\projet annuel - work'n share\gestion fichiers xml\xmlfiles\header.h
+1519962077 c:\wamp64\www\projet annuel - work'n share\gestion fichiers xml\xmlfiles\header.h
 
 1516611310 c:\curl-7.58.0\include\curl\curl.h
 	"curlver.h"
@@ -210,4 +212,10 @@
 1286864732 c:\libxml2-2.7.8.win32\include\libxml\xmlschemas.h
 	<libxml/xmlversion.h>
 	<libxml/tree.h>
+
+1286864732 c:\libxml2-2.7.8.win32\include\libxml\xpath.h
+	<libxml/xmlversion.h>
+	<libxml/xmlerror.h>
+	<libxml/tree.h>
+	<libxml/hash.h>
 
