@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customers><customer><nameCustomer>jean</nameCustomer><surnameCustomer>dupont</surnameCustomer><emailCustomer>jdupont@gmail.com</emailCustomer><booking><exit><idBooking>2</idBooking><dateTime>2018-02-20 15:00:00</dateTime></exit></booking></customer><customer><nameCustomer>jean</nameCustomer><surnameCustomer>dupont</surnameCustomer><emailCustomer>jdupont@gmail.com</emailCustomer><booking><entrance><idBooking>2</idBooking><dateTime>2018-02-20 15:00:00</dateTime></entrance></booking></customer></customers>

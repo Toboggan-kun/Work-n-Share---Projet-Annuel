@@ -1,11 +1,12 @@
 /**
 
-    GESTION DE FICHIERS XML
-    /!\ LES COMMENTAIRES SONT EN FRANCAIS POUR LE MOMENT
-        A MODIFIER EN ANGLAIS PLUS TARD /!\
-    LES DIFFERENTES ETAPES
+        GESTION DE FICHIERS XML
+        /!\ LES COMMENTAIRES SONT EN FRANCAIS POUR LE MOMENT
+            A MODIFIER EN ANGLAIS PLUS TARD /!\
+        *Importer le fichier sql: worknshare.sql
 
-**/
+
+                                                            **/
 #include <stdio.h>
 #include <stdlib.h>
 #include <winsock2.h>
@@ -15,12 +16,13 @@
 #include <libxml/xmlreader.h>
 #include <libxml/parser.h>
 #include <libxml/xmlmemory.h>
+#include <glib.h>
 #include "header.h"
 
 int main(int argc, char ** argv){
 
     Data          data;
-    int           qrcode = 2; //QRCODE RECUPERE
+    int           qrcode = 3; //QRCODE RECUPERE
     char          *xmlFileName; //FICHIER INTERMEDIAIRE
     const char    *xmlFileName2;
     const char    *xmlFinalFileName;
@@ -79,7 +81,7 @@ int main(int argc, char ** argv){
         while((row = mysql_fetch_row(result))){
             sprintf(data.openspaceName, "%s", row[1]);
         }
-
+        //RECUPERE LA TAILLE DES INFORMATIONS SUIVANTES:
         idlenght = strlen(data.idBooking);
         namelenght = strlen(data.openspaceName);
         datelenght = strlen(data.datetime);
@@ -88,16 +90,20 @@ int main(int argc, char ** argv){
         xmlFileName2 = malloc(sizeof(char) * (idlenght + namelenght + datelenght + 4));
         xmlFinalFileName = malloc(sizeof(char) * 5);
 
+
+        //CREATION DU NOM DU FICHIER XML DE FORMAT: id:nom:date.xml
         for(i = 0; i < idlenght; i++){
             xmlFileName[i] = data.idBooking[i];
         }
         i = 0;
         for(i = 0; i <= namelenght; i++){
             xmlFileName[i+idlenght] = data.openspaceName[i];
+
         }
         i = 0;
         while(data.datetime[i] != ' '){
             xmlFileName[i+(idlenght+namelenght)] = data.datetime[i];
+            printf("%c", xmlFileName[i]);
             i++;
         }
 
@@ -119,21 +125,16 @@ int main(int argc, char ** argv){
 
                                                                         **/
 
-        //Récupérer le jour JJ pour nommer le fichier XML après concaténation
+        //RECUPERATION DU JOUR POUR LA CREATION DU FICHIER FINAL
         jj[0] = data.datetime[8];
         jj[1] = data.datetime[9];
         jj[2] = '\0';
         printf("JJ = %s", jj);
-        createDirectory(data); //CREATION DU REPERTOIRE DE FORMAT MMAA
-        sprintf(xmlFinalFileName, "%s.xml", jj);
-        xmlWriterFilename(xmlFinalFileName, data, 1); //CREATION DU FICHIER FINAL (CONCATENATION)
-        readXMLFile(xmlFinalFileName); //A TERMINER, VERIFICATION SI LE FICHIER EXISTE OU NON
+        sprintf(xmlFinalFileName, "%s.xml", jj); //RECUPERATION DU NOM DU FICHIER
+        createDirectory(xmlFinalFileName, data); //CREATION DU REPERTOIRE DE FORMAT MMAA
 
-        doc = parseDoc(xmlFinalFileName, data);
-        if(doc != NULL) {
-            xmlSaveFormatFile(xmlFinalFileName, doc, 0); //N'ECRASE PAS LE FICHIER LORS DE LA MODIFICATION
-            xmlFreeDoc(doc);
-        }
+        //readXMLFile(xmlFinalFileName); //A TERMINER, VERIFICATION SI LE FICHIER EXISTE OU NON
+
 
         free(xmlFinalFileName);
         free(xmlFileName2);
