@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 20 Février 2018 à 21:08
+-- Généré le :  Mar 06 Mars 2018 à 23:13
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -42,8 +42,9 @@ CREATE TABLE `booking` (
 --
 
 INSERT INTO `booking` (`idBooking`, `idUser`, `idOpenSpace`, `dateBookingStart`, `dateRealBookingStart`, `dateBookingEnd`, `dateRealBookingEnd`, `stateBooking`) VALUES
-(1, 2, 1, '2018-02-19 18:00:00', '2018-02-19 18:00:00', '2018-02-19 18:00:00', '2018-02-19 18:00:00', 1),
-(2, 1, 0, '2018-02-20 15:00:00', '2018-02-20 15:00:00', '2018-02-20 15:00:00', '2018-02-20 15:00:00', 0);
+(1, 2, 3, '2018-02-19 18:00:00', '2018-02-19 18:00:00', '2018-02-19 18:00:00', '2018-02-19 18:00:00', 1),
+(2, 1, 2, '2018-02-20 15:00:00', '2018-02-20 15:00:00', '2018-02-20 15:00:00', '2018-02-20 15:00:00', 0),
+(3, 3, 4, '2018-02-19 19:00:00', '2018-02-19 19:00:00', '2018-02-19 19:00:00', '2018-02-19 19:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -61,7 +62,12 @@ CREATE TABLE `openspace` (
 --
 
 INSERT INTO `openspace` (`idOpenSpace`, `nameOpenSpace`) VALUES
-(1, 'Bastille');
+(1, 'Bastille'),
+(2, 'République'),
+(3, 'Odéon'),
+(4, 'PlaceItalie'),
+(5, 'Ternes'),
+(6, 'Beaubourg');
 
 -- --------------------------------------------------------
 
@@ -83,7 +89,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`idUser`, `nameUser`, `surnameUser`, `emailUser`, `subcription`) VALUES
 (1, 'jean', 'dupont', 'jdupont@gmail.com', 0),
-(2, 'marie', 'lala', 'malal@gmail.com', 2);
+(2, 'marie', 'lala', 'malal@gmail.com', 2),
+(3, 'Paul', 'Lele', 'plele@live.fr', 2);
 
 --
 -- Index pour les tables exportées
@@ -115,17 +122,17 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `idBooking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idBooking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `openspace`
 --
 ALTER TABLE `openspace`
-  MODIFY `idOpenSpace` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idOpenSpace` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
