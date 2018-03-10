@@ -17,9 +17,16 @@ class Form{
 	}
 
 	public function input ($name){
-		return $this->surround(
-			'<input type="text" name="'. $name .'"value="'.$this->getValue($name).'">');
+		if($name === "passwordUser" || $name === "passwordUser2"){
+			return $this->surround('<input type="password" name="'. $name .'"value="'.$this->getValue($name).'">');
+		}else{
+
+			return $this->surround(
+				'<input type="text" name="'. $name .'"value="'.$this->getValue($name).'">');
+		}
 	}
+	
+
 	public function submit(){
 		return $this-> surround('<button type="submit">Envoyer</button>');
 	}

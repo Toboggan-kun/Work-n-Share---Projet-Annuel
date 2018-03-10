@@ -7,7 +7,8 @@
 #include <libxml/xmlreader.h>
 #include <libxml/parser.h>
 #include <libxml/xmlmemory.h>
-#include <glib.h>
+#include <dirent.h>
+#include <time.h>
 #include "header.h"
 
 void xmlWriterFilename(const char *uri, struct Data data, int setFlag){
@@ -19,10 +20,8 @@ void xmlWriterFilename(const char *uri, struct Data data, int setFlag){
         printf("xmlWriterFilename: Error creating the xml writer\n");
         return;
     }
-    if(setFlag == 0)
-        xmlTextWriterStartDocument(writer, NULL, "UTF-8", NULL);
-
     if(setFlag == 1){
+        xmlTextWriterStartDocument(writer, NULL, "UTF-8", NULL);
         xmlTextWriterStartElement(writer, BAD_CAST "customers");
     }else{
         xmlTextWriterStartElement(writer, BAD_CAST "customer");
@@ -30,7 +29,7 @@ void xmlWriterFilename(const char *uri, struct Data data, int setFlag){
             xmlTextWriterWriteFormatElement(writer, BAD_CAST "surnameCustomer", "%s", data.surname);
             xmlTextWriterWriteFormatElement(writer, BAD_CAST "emailCustomer", "%s", data.mail);
             xmlTextWriterStartElement(writer, BAD_CAST "booking");
-            if(data.idBooking == 1){
+            if(data.state == 1){
                 xmlTextWriterStartElement(writer, BAD_CAST "entrance");
             }else{
                 xmlTextWriterStartElement(writer, BAD_CAST "exit");
@@ -50,15 +49,19 @@ void xmlWriterFilename(const char *uri, struct Data data, int setFlag){
 
 }
 
-void readXMLFile(const char *fileName){
+int readXMLFile(const char *fileName){
 
+    int     error;
     xmlTextReaderPtr reader;
     reader = xmlReaderForFile(fileName, NULL, 0);
     if(reader == NULL){
-        printf("\nCe fichier XML n'existe pas!");
+        error = 1;
+        printf("\nLe fichier n'existe pas!\n");
     }else{
-        printf("\nCe fichier XML existe!");
+        error = 0;
+        printf("\nLe fichier existe!\n");
     }
+    return error;
 
 }
 
@@ -118,12 +121,18 @@ xmlDocPtr parseDoc(char *fileName, struct Data data) {
         xmlNewTextChild(cur, NULL, "dateTime", data.datetime);
 
     }
+    if(doc != NULL){
+
+        xmlSaveFormatFile(fileName, doc, 0); //N'ECRASE PAS LE FICHIER LORS DE LA MODIFICATION
+        xmlFreeDoc(doc);
+    }
 
     return(doc);
 }
 
 void createDirectory(const char *fileName, struct Data data){
 
+    int     error;
     char    *mmyy = NULL;
     char    *path = "C:\\wamp64\\www\\Projet Annuel - Work'n Share\\Gestion fichiers XML\\xmlFiles\\";
     const char    *directoryPath;
@@ -144,8 +153,11 @@ void createDirectory(const char *fileName, struct Data data){
     sprintf(directoryPath, "%s\\%s", directoryPath, fileName);
     printf("\npath: %s\n", directoryPath);
 
-    readXMLFile(directoryPath);
-    xmlWriterFilename(directoryPath, data, 1);
+    error = readXMLFile(directoryPath);
+    if(error == 1){
+        xmlWriterFilename(directoryPath, data, error);
+    }
+
     doc = parseDoc(directoryPath, data);
     if(doc != NULL){
         xmlSaveFormatFile(directoryPath, doc, 0); //N'ECRASE PAS LE FICHIER LORS DE LA MODIFICATION
@@ -157,4 +169,52 @@ void createDirectory(const char *fileName, struct Data data){
     free(mmyy);
 
 }
+int checkHourBeforeSend(struct tm instant, time_t t){
 
+    int     hour;
+    int     minute;
+    int     error = 0;
+    time(&t);
+    instant = *localtime(&t); //RECUPERE L'HEURE LOCALE
+
+    hour = instant.tm_hour;
+    minute = instant.tm_min;
+
+    if(hour == 23 && minute == 0){ //SI 23:00
+        printf("\nC'est l'heure d'envoyer les fichiers au service informatique!");
+        error = 1;
+
+    }else{
+        printf("\nCe n'est pas l'heure d'envoyer les fichiers au service informatique!");
+        error = 0;
+    }
+    return error;
+}
+
+void browseXMLFiles(){
+
+    const char *directorypath = "C:\\wamp64\\www\\Projet Annuel - Work'n Share\\Gestion fichiers XML\\xmlFiles";
+    DIR* directory = NULL;
+    struct dirent *readFile = NULL; //POINTEUR VERS LA STRUCTURE dirent
+    directory = opendir(directorypath); //OUVERTURE DU DOSSIER CONTENANT LES FICHIERS XML
+
+    if(directory == NULL){
+        printf("\nLe dossier n'a pas pu s'ouvrir!\n");
+
+    }else{
+        printf("\nLe dossier est ouvert!\nJe vais lire les fichiers à l'intérieur!\n");
+        while((readFile = readdir(directory)) != NULL){
+            if(strstr(readFile->d_name, ".xml")){
+                //TRAITEMENT ENVOI DES FICHIERS
+                printf("%ld -> %s\n", telldir(directory), readFile->d_name);
+            }
+        }
+    }
+
+
+    if(closedir(directory) == -1){ //SI IL Y A UN SOUCIS AVEC LA FERMETURE
+        exit(-1);
+    }
+
+    printf("\nLe dossier est fermé!\n");
+}

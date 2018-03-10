@@ -11,9 +11,13 @@ $db = connectDb();
 <body>
 	<form action="saveuser.php" method = "POST"> 	
 		<?php 
-		echo $form ->input('username');
-		echo $form ->input('password');
+		echo $form -> input('nameUser');
+		echo $form -> input('surnameUser');
+		echo $form -> input('emailUser');
+		echo $form -> input('passwordUser');
+		echo $form -> input('passwordUser2');
 		echo $form -> submit();
+		echo "ok";
 		?>	
 </body>
 <?php

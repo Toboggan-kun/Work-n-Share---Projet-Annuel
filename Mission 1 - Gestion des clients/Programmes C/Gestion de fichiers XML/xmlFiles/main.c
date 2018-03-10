@@ -16,7 +16,9 @@
 #include <libxml/xmlreader.h>
 #include <libxml/parser.h>
 #include <libxml/xmlmemory.h>
-#include <glib.h>
+#include <dirent.h>
+#include <time.h>
+
 #include "header.h"
 
 int main(int argc, char ** argv){
@@ -24,17 +26,17 @@ int main(int argc, char ** argv){
     Data          data;
     int           qrcode = 3; //QRCODE RECUPERE
     char          *xmlFileName; //FICHIER INTERMEDIAIRE
-    const char    *xmlFileName2;
-    const char    *xmlFinalFileName;
+    const char    *xmlFileName2; //FICHIER XML MMJJ/openspace.xml
+    const char    *xmlFinalFileName; //FICHIER XML JJ
 
     int           idlenght = 0;
     int           namelenght = 0;
     int           datelenght = 0;
 
     int           i = 0;
-    char          mmaa[4];
-    char          jj[2];
-
+    char          mmaa[4];  //REPERTOIRE MMAA
+    char          jj[2];    //NOM FICHIER XML JJ
+    int           error = 0;
     //MYSQL
     MYSQL       *mysql;
     MYSQL_RES   *result = NULL;
@@ -42,7 +44,10 @@ int main(int argc, char ** argv){
 
     //XML
     xmlDocPtr *doc = NULL;
-    xmlNode *root = NULL;
+
+    //HEURE
+    time_t t;
+    struct tm instant;
 
 
     char request[150];
@@ -72,6 +77,7 @@ int main(int argc, char ** argv){
             sprintf(data.idBooking, "%s", row[0]);
             sprintf(data.datetime, "%s", row[4]);
             sprintf(data.idOpenspace, "%s", row[2]);
+            sprintf(data.state, "%s", row[7]);
         }
 
         sprintf(request, "SELECT * FROM openspace WHERE idOpenSpace = \'%s\'", data.idOpenspace);
@@ -114,27 +120,38 @@ int main(int argc, char ** argv){
                         CREATION DU FICHIER XML SOUS FORMAT:
                         idOpenspace:openspaceName:date.xml
                                                                         **/
-        xmlWriterFilename(xmlFileName2, data, 0);
+        //VERIFIE SI LE FICHIER EXISTE DEJA
+        error = readXMLFile(xmlFileName2);
+
+        if(error == 0){ //SI LE FICHIER EXISTE DEJA, REECRITURE DU FICHIER
+            doc = parseDoc(xmlFileName2, data);
+
+        }else{ //SINON CREATION DU NOUVEAU FICHIER
+
+            xmlWriterFilename(xmlFileName2, data, error);
+            doc = parseDoc(xmlFileName2, data);
+        }
 
         /**
                         APRES LA CREATION DU FICHIER XML
+                            ENVOI DU FICHIER XML VERS LE SERVEUR SI
+                                L'envoi des fichiers XML vers le Service Informatique s'effectura tous les 23:00
                             CONCATENATION DES FICHIERS
                             1. Vérifier si le fichier JJ unique existe
                                 Si oui, on reprend le fichier et on ajoute
                                 Si non, on créé le fichier et on ajoute
 
-                                                                        **/
+                                                                                **/
+        error = checkHourBeforeSend(instant, t);
+        browseXMLFiles();
 
-        //RECUPERATION DU JOUR POUR LA CREATION DU FICHIER FINAL
+        /*//RECUPERATION DU JOUR POUR LA CREATION DU FICHIER FINAL
         jj[0] = data.datetime[8];
         jj[1] = data.datetime[9];
         jj[2] = '\0';
         printf("JJ = %s", jj);
         sprintf(xmlFinalFileName, "%s.xml", jj); //RECUPERATION DU NOM DU FICHIER
-        createDirectory(xmlFinalFileName, data); //CREATION DU REPERTOIRE DE FORMAT MMAA
-
-        //readXMLFile(xmlFinalFileName); //A TERMINER, VERIFICATION SI LE FICHIER EXISTE OU NON
-
+        createDirectory(xmlFinalFileName, data); //CREATION DU REPERTOIRE DE FORMAT MMAA*/
 
         free(xmlFinalFileName);
         free(xmlFileName2);
