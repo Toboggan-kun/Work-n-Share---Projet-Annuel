@@ -1,78 +1,33 @@
-@font-face
-{
-    font-family: 'StrawberryBlossom';
-    src: url(fonts/Strawberry Blossom.ttf) format('truetype');
-}
-/* HEADER */
-header.toolbar {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	font-family: 'Open Sans', sans-serif;
-	background-color: grey;
-	color: white;
-	text-decoration: none;
-	list-style: none;
-	width: 100%;
-}
-header.toolbar nav a{
-	font-size: 15px;
-	margin-left: 50px; 
-	padding: 24px;
-	transition: all.3s;
-}
-div.mainLogo{
-	font-family:'StrawberryBlossom';
-	margin-left: 20px;
-	margin-top: 12.5px;
-}
-#display_register{
+/*				ONGLETS				*/
+#tab{
 	position: absolute;
-	display: block;
-	display: none;
+    list-style-type : none;
+    padding : 0px;
+    left: 60%;
+    margin-top : 10;
+    margin-bottom: 10;
+    color: black;
 }
-#register{
-	display: block;
-	padding: 10px;
-	margin-left: 330px;
+#tab li{
+    float : left;
+    height : 21px; 
+    margin : 1px 2px 0 2px;
 
 }
 
-h1, li, a{
-	float: left;
-	font-family: 'Roboto', sans-serif;
-	color: white;
-	text-decoration: none;
-	list-style: none;
+#tab li.active{
+   color: yellow;
 
 }
-/* BODY */
-body h1{
-	font-family: 'Roboto', sans-serif;
-	color: black;
-
+#tab a{
+    display : block;
+    text-decoration : none;
+    padding : 10px;
 }
-.bloc_image{
-	display: block;
-	border-color: black;
-	border-radius: 2px;
-	float: center;
-	width: 200px;
-	height: 300px;
-	padding: 50px;
-	width: 100%;
-	clip: auto;
+#tab a:hover{
+    color : blue;
 }
-
-/* FOOTER */
-footer{
-	left: 0;
-	right: 0;
-	bottom: 0;
-	font-family: 'Open Sans', sans-serif;
-	background-color: grey;
-	color: black;
-	text-decoration: none;
-	list-style: none;
+#menu{
+    border-bottom : 1px solid black;
+    padding-bottom : 70px;
 }
