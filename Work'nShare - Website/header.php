@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<meta charset="utf-8">
+	<meta charset="UTF-8">
 	<title>Work'n Share</title>
-	<script src="script.js"></script>
+	<script type="text/javascript" src="script.js"></script>
 	<link rel="stylesheet" href="style.css">
+	<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
 
 </head>
 <header>
 <!-- AJOUTER LES SESSIONS -->
 <div id = "menu">
 	<ul id = "tab">
-		<li class = "active"><a href="manageUsers.php"> Utilisateurs </a></li>
-		<li><a href=""> Menu </a></li>
-		<li><a href=""> Salles disponibles </a></li>
-		<li><a href=""> L'équipe </a></li>
-		<li><a href=""> Equipements </a></li>
-		<li><a href=""> Se déconnecter </a></li>
+		<li><a href="index.php"><i class="fas fa-home"></i> Home </a></li>
+		<li class = "active"><a href="manageUsers.php"><i class="fas fa-users"></i>Utilisateurs </a></li>
+		<li><a href=""><i class="fas fa-utensils"></i> Menu </a></li>
+		<li><a href="rooms.php"><i class="fas fa-calendar-alt"></i> Salles disponibles </a></li>
+		
+		<li><a href=""><i class="fas fa-laptop"></i> Equipements </a></li>
+		<li><a href="userProfile.php"><i class="fas fa-user-circle"></i> Mon espace </a></li>
+		<li><a href=""><i class="fas fa-power-off"></i></a></li>
 	</ul>
 </div>
 </header>

@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require "functions.php";
+require "class/dataBaseClass.php";
 include "header.php";
 
 	//CONNEXION A LA BASE DE DONNEES

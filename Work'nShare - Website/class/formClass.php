@@ -2,7 +2,7 @@
 class Form{
 
 	private $data;
-	public $surround ='label';
+	public $surround ='p';
 
 	public function __construct($data = array()){
 		$this->data = $data;
@@ -16,14 +16,13 @@ class Form{
 		return isset($this->data[$index]) ? $this->data[$inputndex] : null;
 	}
 
-	public function input ($name, $label){
+	public function input ($name){
 		if($name === "passwordUser" || $name === "passwordUser2"){
-			return $this->surround(
-				'<label>' . $this->getValue($label). '</label><input type="password" name="'. $name .'"value="'.$this->getValue($name).'">');
+			return $this->surround('<input type="password" name="'. $name .'"value="'.$this->getValue($name).'">');
 		}else{
 
 			return $this->surround(
-				'<label>' . $label. '</label> <input type="text" name="'. $name .'"value="'.$this->getValue($name).'">');
+				'<input type="text" name="'. $name .'"value="'.$this->getValue($name).'">');
 		}
 	}
 	

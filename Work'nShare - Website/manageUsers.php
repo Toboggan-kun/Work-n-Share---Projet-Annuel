@@ -1,11 +1,20 @@
 <?php
-session_start();
+
 include "header.php";
-require "backend.php";
+require "class/userClass.php";
 
-$arrayUser = new Backend();
-$db = new Database();
+$db = new DataBase();
+$user = new User();
 
+$db->connectDataBase();
+
+$db->prepareQuery("SELECT * FROM user WHERE isAdmin = :isAdmin AND isDeleted = :isDeleted");
+
+$db->executeQuery	([	'isAdmin' => 0,
+											'isDeleted' => 0
+ 									]);
+
+$result = $db->fetchQuery();
 
 ?>
 
@@ -28,21 +37,33 @@ $db = new Database();
 
 			</tr>
 		</thead>
-
+		<?php
+				foreach($result as $res){
+		 ?>
 		<tbody>
-			<tr>
+			<tr id="refresh"">
 				<?php
+					echo '		<th>' . $res[0] . '</th>';
+					echo '		<th>' . $res[1] . '</th>';
+					echo '		<th>' . $res[2] . '</th>';
+					echo '		<th>' . $res[3] . '</th>';
+					echo '		<th>' . $res[5] . '</th>';
+					echo '		<th>Conneté(t)</th>';
 
+					echo '    <th><button id="'.$res[0].'" onclick="deleteUser(' . $res[0] . ')"><i class="fas fa-trash"></i></button></th>';
 
-					echo $arrayUser->getUserDataFromDataBase();
-					/*echo $arrayUser->getUserDataFromDataBase('nameUser');
-					echo $arrayUser->getUserDataFromDataBase('surnameUser');
-					echo $arrayUser->getUserDataFromDataBase('emailUser');
-					echo $arrayUser->getUserDataFromDataBase('subscription');*/
-
-
+				}
 				?>
+
 			</tr>
+
 		</tbody>
+
 	</table>
+
 </center>
+
+<?php
+
+include "footer.php";
+?>
