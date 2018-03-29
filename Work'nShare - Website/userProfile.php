@@ -3,6 +3,8 @@ session_start();
 include "header.php";
 require "class/dataBaseClass.php";
 require "class/windowClass.php";
+require "class/formClass.php";
+$form = new Form($_POST);
 
 $db = new DataBase();
 $db->connectDataBase();
@@ -17,13 +19,15 @@ $result = $db->fetchQuery();
 
 	<h1><i class="fas fa-user-circle"></i>  Mon espace personnel</h2>
 
-	<form id="editProfileForm">
+	<form id="editProfileForm" method="POST" action="">
 		
-		<label id="labelEditProfileForm">Nom </label><br>
-		<label id="labelEditProfileForm">Prénom </label><br>
-		<label id="labelEditProfileForm">Email </label><br>
-		<label id="labelEditProfileForm">Mon abonnement actuel </label><br>
-		<button onclick="editProfile()">Editer mon profil</button><br>
+		<label id="labelEditProfileForm">Nom :</label>
+		<label id="labelEditProfileForm">Prénom :</label>
+		<label id="labelEditProfileForm">Email :</label>
+		<label id="labelEditProfileForm">Mon abonnement actuel :</label>
+		<input id="editButton" type="button" value="Editer mon profil" onclick="editProfile()"><br>
+
+
 	</form>
 
 </center>

@@ -19,7 +19,7 @@ class User extends DataBase{
 
 	public function deleteUser($id){
 		$this->idUser = $id;
-		var_dump($this->idUser);
+
 		$db = new DataBase();
 		$db->connectDataBase();
 

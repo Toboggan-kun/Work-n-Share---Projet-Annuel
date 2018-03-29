@@ -16,6 +16,7 @@ $db->executeQuery	([	'isAdmin' => 0,
 
 $result = $db->fetchQuery();
 
+
 ?>
 
 
@@ -37,11 +38,12 @@ $result = $db->fetchQuery();
 
 			</tr>
 		</thead>
+
 		<?php
 				foreach($result as $res){
 		 ?>
-		<tbody>
-			<tr id="refresh"">
+		<tbody id="refresh">
+			<tr >
 				<?php
 					echo '		<th>' . $res[0] . '</th>';
 					echo '		<th>' . $res[1] . '</th>';
@@ -50,9 +52,14 @@ $result = $db->fetchQuery();
 					echo '		<th>' . $res[5] . '</th>';
 					echo '		<th>Conneté(t)</th>';
 
-					echo '    <th><button id="'.$res[0].'" onclick="deleteUser(' . $res[0] . ')"><i class="fas fa-trash"></i></button></th>';
+					echo '    <th><input type="button" id="'.$res[0].'" onclick="deleteUser(' . $res[0] . ')" value="Ok"></th>';
 
 				}
+				if($result == null){
+					echo '<th>Pas de membres</th>';
+				} 
+					
+				
 				?>
 
 			</tr>

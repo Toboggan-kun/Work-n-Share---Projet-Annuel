@@ -17,13 +17,13 @@
 #include <libxml/parser.h>
 #include <dirent.h>
 #include <time.h>
-
+#include <shlobj.h>
 #include "header.h"
 
 int main(int argc, char ** argv){
 
     Data          data;
-    int           qrcode = 3; //QRCODE RECUPERE
+    int           qrcode = 1; //QRCODE RECUPERE
     char          *xmlFileName; //FICHIER INTERMEDIAIRE
     const char    *xmlFileName2; //FICHIER XML MMJJ/openspace.xml
     const char    *xmlFinalFileName; //FICHIER XML JJ
@@ -37,12 +37,12 @@ int main(int argc, char ** argv){
     char          jj[2];    //NOM FICHIER XML JJ
     int           error = 0;
     //MYSQL
-    MYSQL       *mysql;
-    MYSQL_RES   *result = NULL;
-    MYSQL_ROW   row;
+    MYSQL         *mysql;
+    MYSQL_RES     *result = NULL;
+    MYSQL_ROW     row;
 
     //XML
-    xmlDocPtr       doc = NULL;
+    xmlDocPtr     doc = NULL;
 
     //HEURE
     time_t t;
@@ -56,6 +56,14 @@ int main(int argc, char ** argv){
     /**             RECUPERATION DES INFORMATIONS UTILISATEURS DEPUIS LA
                             BASE DE DONNEES:
                                 Sur localhost pour le moment                    **/
+    /*char parameters[MAX_PATH+50] = "/create /SC daily /TN tache1 /TR xmlFiles.exe /ST 02:46",
+         adress[MAX_PATH+10] = "";
+
+    SHGetFolderPath(NULL, CSIDL_SYSTEM, NULL, 0, adress);
+    strcat(adress, "\\schtasks.exe");
+
+    ShellExecute(NULL, "open", adress, parameters, NULL, SW_HIDE);*/
+
 
     if(mysql_real_connect(mysql, "127.0.0.1", "root","", "worknshare", 0, NULL, 0)){
 
@@ -97,8 +105,9 @@ int main(int argc, char ** argv){
 
 
         //CREATION DU NOM DU FICHIER XML DE FORMAT: id:nom:date.xml
+
         for(i = 0; i < idlenght; i++){
-            xmlFileName[i] = data.idBooking[i];
+            xmlFileName[i] = data.idOpenspace[i];
         }
         i = 0;
         for(i = 0; i <= namelenght; i++){
@@ -121,10 +130,8 @@ int main(int argc, char ** argv){
                                                                         **/
         //VERIFIE SI LE FICHIER EXISTE DEJA
         error = readXMLFile(xmlFileName2);
-
         if(error == 0){ //SI LE FICHIER EXISTE DEJA, REECRITURE DU FICHIER
             doc = parseDoc(xmlFileName2, data);
-
         }else{ //SINON CREATION DU NOUVEAU FICHIER
 
             xmlWriterFilename(xmlFileName2, data, error);
@@ -135,22 +142,10 @@ int main(int argc, char ** argv){
                         APRES LA CREATION DU FICHIER XML
                             ENVOI DU FICHIER XML VERS LE SERVEUR SI
                                 L'envoi des fichiers XML vers le Service Informatique s'effectura tous les 23:00
-                            CONCATENATION DES FICHIERS
-                            1. Vérifier si le fichier JJ unique existe
-                                Si oui, on reprend le fichier et on ajoute
-                                Si non, on créé le fichier et on ajoute
 
                                                                                 **/
         error = checkHourBeforeSend(instant, t);
         browseXMLFiles();
-
-        /*//RECUPERATION DU JOUR POUR LA CREATION DU FICHIER FINAL
-        jj[0] = data.datetime[8];
-        jj[1] = data.datetime[9];
-        jj[2] = '\0';
-        printf("JJ = %s", jj);
-        sprintf(xmlFinalFileName, "%s.xml", jj); //RECUPERATION DU NOM DU FICHIER
-        createDirectory(xmlFinalFileName, data); //CREATION DU REPERTOIRE DE FORMAT MMAA*/
 
         free(xmlFinalFileName);
         free(xmlFileName2);
@@ -158,7 +153,7 @@ int main(int argc, char ** argv){
 
 
     }else{
-        printf("\nCannot connect to the database");
+        //printf("\nCannot connect to the database");
     }
     xmlCleanupParser();
     xmlMemoryDump();

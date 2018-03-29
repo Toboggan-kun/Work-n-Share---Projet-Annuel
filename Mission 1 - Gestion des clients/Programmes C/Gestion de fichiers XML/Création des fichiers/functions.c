@@ -85,7 +85,7 @@ xmlDocPtr parseDoc(char *fileName, struct Data data) {
         xmlFreeDoc(doc);
         return (NULL);
     }else{
-        printf("\nJe parse le fichier!\n");
+        //printf("\nJe parse le fichier!\n");
         xmlNewTextChild(cur, NULL, "customer", NULL);
 
     }
@@ -96,7 +96,7 @@ xmlDocPtr parseDoc(char *fileName, struct Data data) {
         return (NULL);
     }else{
 
-        printf("\nJe parse le fichier!\n");
+        //printf("\nJe parse le fichier!\n");
         xmlNewTextChild(cur, NULL, "nameCustomer", data.name);
         xmlNewTextChild(cur, NULL, "surnameCustomer", data.surname);
         xmlNewTextChild(cur, NULL, "emailCustomer", data.mail);
@@ -109,7 +109,7 @@ xmlDocPtr parseDoc(char *fileName, struct Data data) {
         return (NULL);
     }else{
 
-        printf("\nJe parse le fichier!\n");
+        //printf("\nJe parse le fichier!\n");
         if(data.idBooking == 1){
             xmlNewTextChild(cur, NULL, "exit", NULL);
         }else{
@@ -180,11 +180,11 @@ int checkHourBeforeSend(struct tm instant, time_t t){
     minute = instant.tm_min;
 
     if(hour == 23 && minute == 0){ //SI 23:00
-        printf("\nC'est l'heure d'envoyer les fichiers au service informatique!");
+        //printf("\nC'est l'heure d'envoyer les fichiers au service informatique!");
         error = 1;
 
     }else{
-        printf("\nCe n'est pas l'heure d'envoyer les fichiers au service informatique!");
+        //printf("\nCe n'est pas l'heure d'envoyer les fichiers au service informatique!");
         error = 0;
     }
     return error;
@@ -198,14 +198,14 @@ void browseXMLFiles(){
     directory = opendir(directorypath); //OUVERTURE DU DOSSIER CONTENANT LES FICHIERS XML
 
     if(directory == NULL){
-        printf("\nLe dossier n'a pas pu s'ouvrir!\n");
+        //printf("\nLe dossier n'a pas pu s'ouvrir!\n");
 
     }else{
-        printf("\nLe dossier est ouvert!\nJe vais lire les fichiers à l'intérieur!\n");
+        //printf("\nLe dossier est ouvert!\nJe vais lire les fichiers à l'intérieur!\n");
         while((readFile = readdir(directory)) != NULL){
             if(strstr(readFile->d_name, ".xml")){
                 //TRAITEMENT ENVOI DES FICHIERS
-                printf("%ld -> %s\n", telldir(directory), readFile->d_name);
+                //printf("%ld -> %s\n", telldir(directory), readFile->d_name);
             }
         }
     }
@@ -215,5 +215,5 @@ void browseXMLFiles(){
         exit(-1);
     }
 
-    printf("\nLe dossier est fermé!\n");
+    //printf("\nLe dossier est fermé!\n");
 }

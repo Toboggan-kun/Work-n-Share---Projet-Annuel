@@ -21,7 +21,7 @@ $validators->notEmpty($_POST);
 			echo $form->input('emailUser', 'Email');
 			echo $form->input('passwordUser', 'Mot de passe');
 			echo $form->input('passwordUser2', 'Confirmez votre mot de passe');
-			echo $form->submit();
+			echo $form->submit('Envoyer');
 		
 		?>
 	</form>

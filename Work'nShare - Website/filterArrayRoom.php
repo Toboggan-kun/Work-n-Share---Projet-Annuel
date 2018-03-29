@@ -1,17 +1,14 @@
 <?php
 
-require "class/dataBaseClass.php";
+//require "class/dataBaseClass.php";
+require "class/roomClass.php";
 $db = new DataBase();
 $db->connectDataBase();
 
-
+$room = new Room();
 if(isset($_POST['idOpenSpace']) && $_POST['idOpenSpace'] != null){
 
 	$idOpenSpace = $_POST['idOpenSpace'];
-
-	/*$query = $db->prepareQuery('
-
-		SELECT R.idOpenSpace AS idR, O.idOpenSpace AS idO FROM openspace O, room R WHERE O.nameOpenSpace = "'.$nameOpenSpace.'" ORDER BY idR');*/
 	$query = $db->prepareQuery	('
 		SELECT 	*
 		FROM 	room
@@ -45,8 +42,10 @@ $query = $db->fetchQuery();
 				<th>Occupé par</th>
 				<th>En maintenance</th>
 				<th>Consulter</th>
+				<th>Supprimer</th>
 			</tr>
 		</thead>
+		
 		<?php
 			foreach ($query as $value) {
 
@@ -75,9 +74,11 @@ $query = $db->fetchQuery();
 					}
 					//OCCUPE PAR
 					echo '<th> A venir </th>';
-					echo '<th><button id= "display" onclick="showPopup(' . "window" . ')"> <i class="fas fa-wrench"></button></i> </th>';
+					echo '<th><input type="button" id= "display" onclick="setMaintenance()" value="Set"></th>';
 
 					echo '<th><a href="" >Voir la réservation </a></th>';
+
+					echo '<th><input type="button" id= "display"></button value="Ok"></input </th>';
 				}
 					?>
 				</tr>

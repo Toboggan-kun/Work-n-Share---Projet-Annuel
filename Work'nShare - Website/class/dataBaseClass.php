@@ -18,18 +18,18 @@ class DataBase{
 	}
 	public function connectDataBase() {
 
-    try{
-			$this->pdo = new PDO("mysql:host=". $this->host .";dbname=". $this->name, $this->user, $this->password);
-			$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	    try{
+				$this->pdo = new PDO("mysql:host=". $this->host .";dbname=". $this->name, $this->user, $this->password);
+				$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-		}catch (Exception $e){
-			die("Erreur SQL : ".$e->getMessage());
-		}
+			}catch (Exception $e){
+				die("Erreur SQL : ".$e->getMessage());
+			}
 
-    return $this->pdo;
+	    return $this->pdo;
 
-  }
+  	}
 
 
 	public function prepareQuery($query){
