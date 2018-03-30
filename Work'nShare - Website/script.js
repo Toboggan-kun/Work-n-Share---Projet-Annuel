@@ -77,12 +77,8 @@ function editProfile(){
 
       if(request.status == 200){
 
-          var result = request.responseText;
-          console.log(result.innerHTML);
-          for(var i = 0; i < result.length - 1; i++){
-            result[i].appendChild(node);
-          }
-          document.getElementById('labelEditProfileForm') = request.responseText; //AFFICHAGE DANS LA BALISE FORM
+          console.log(request.responseText);
+          document.getElementById('display').innerHTML = request.responseText; //AFFICHAGE DANS LA BALISE FORM
 
 
       }
@@ -90,39 +86,8 @@ function editProfile(){
     }
 
   }
-
-
-  request.open('POST', 'editProfile.php', true);
-  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  var child = [];
-
-  /*var parent = document.getElementById('editProfileForm'); //ON RECUPERE L'ID DU FORMULAIRE
-  console.log(parent);
-  child[0] = document.querySelectorAll('label')[0].value;
-  console.log(child);
-*/
-  var parent = document.getElementsByTagName('label');
-  console.log(parent);
-  var child = document.createElement("INPUT");
-  child.setAttribute("type", "text");
-  child.setAttribute("placeholder", "Votre nouveau nom");
-  console.log(child);
-
-  document.parent.appendChild(child);
-  request.send(parent);
-  /*for(var i = 0; i < child.length; i++){
-    //subChild[i] = document.getElementsByTagName('p')[i];
-    subChild[i] = child.value[i];
-  }
-  console.log(subChild);
-  var test = child.removeChild(subChild);
-  console.log(child);
-  
-  console.log(subChild);
-  console.log(child);
-  var result = 'changeNode=' + child.innerHTML;
-  console.log(result);
-  request.send(result);*/
+  request.open('GET', 'editProfile.php', true);
+  request.send();
 
 
 }

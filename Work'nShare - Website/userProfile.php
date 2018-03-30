@@ -20,7 +20,7 @@ $result = $db->fetchQuery();
 	<h1><i class="fas fa-user-circle"></i>  Mon espace personnel</h2>
 
 	<form id="editProfileForm" method="POST" action="">
-		
+		<!-- AJOUTER PLUS TARD LES INFORMATIONS DE L'USER -->
 		<label id="labelEditProfileForm">Nom :</label>
 		<label id="labelEditProfileForm">Prénom :</label>
 		<label id="labelEditProfileForm">Email :</label>
@@ -29,5 +29,9 @@ $result = $db->fetchQuery();
 
 
 	</form>
+	<form id="display">
+		
+	</form>
+	
 
 </center>

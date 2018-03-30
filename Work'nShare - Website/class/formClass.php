@@ -28,7 +28,9 @@ class Form{
 	
 
 	public function submit($name){
-		return $this->surround('<button type="button">'. $name . '</button>');
+
+			return $this->surround('<input type="button" value="'.$name.'"></input>');
+
 	}
 
 
