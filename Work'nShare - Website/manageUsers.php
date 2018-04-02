@@ -20,8 +20,7 @@ $result = $db->fetchQuery();
 ?>
 
 
-<center>
-	<h1> Administration Work'n Share </h1>
+	<h2> Gestion des utilisateurs </h1>
 	<table>
 		<caption> Membres Work'n Share <br><br></caption>
 
@@ -67,6 +66,7 @@ $result = $db->fetchQuery();
 		</tbody>
 
 	</table>
+
 
 </center>
 

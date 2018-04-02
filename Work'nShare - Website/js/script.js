@@ -49,28 +49,24 @@ function refreshArray(){
 
 }
 
-/*function showPopup(idContent){
-  alert(idContent);
-  if(idContent == null || idContent == 'undefined'){
-    alert("Cet id n'existe pas");
-  }
-  var content = document.getElementById(idContent);
+function showPopup(){
 
-  alert(content);
-  if(content.style.display == "block"){
-    alert('ok');
-    content.style.display = "none";
-  }else{
-    alert('ok');
-    content.style.display = "block";
-  }
-  alert('ok!');
-}*/
+
+  var background = document.getElementById('background');
+  background.style.display = "block";
+  
+
+}
+
+function closePopup(){
+  var popup = document.getElementById('background');
+  popup.style.display = "none";
+}
 
 function editProfile(){
 
   var request = getXhr();
-  var subChild = [];
+
   request.onreadystatechange = function(){
 
     if(request.readyState == 4){
@@ -79,7 +75,6 @@ function editProfile(){
 
           console.log(request.responseText);
           document.getElementById('display').innerHTML = request.responseText; //AFFICHAGE DANS LA BALISE FORM
-
 
       }
 
@@ -93,6 +88,8 @@ function editProfile(){
 }
 function deleteUser(idUser){
 
+  
+
   var request = getXhr();
   request.onreadystatechange = function(){
 
@@ -103,8 +100,8 @@ function deleteUser(idUser){
       }
     }
   }
-  request.open('POST', 'deleteUser.php', true);
-  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+request.open('POST', 'deleteUser.php', true);
+request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
   var data = document.getElementById(idUser).getAttribute('id');
   console.log(data);
@@ -115,22 +112,6 @@ function deleteUser(idUser){
 
 
 }
-function setMaintenance(){
-  var request = getXhr();
-  request.onreadystatechange = function(){
-
-    if(request.readyState == 4){
-      if(request.status == 200){
-        //alert(request.responseText);
-        document.getElementById('response').innerHTML = request.responseText;
-        //document.getElementById('response').innerHTML = request.responseText;
-        //document.getElementById('refresh').innerHTML = request.responseText;
-      }
-    }
-  }
-  request.open('GET', 'filterArrayRoom.php?="display"');
-  request.send();
-}
 
 function addRoom(){
   var request = getXhr();
@@ -138,14 +119,11 @@ function addRoom(){
 
     if(request.readyState == 4){
       if(request.status == 200){
-        //alert(request.responseText);
-        document.getElementById('response').innerHTML = request.responseText;
-        //document.getElementById('response').innerHTML = request.responseText;
-        //document.getElementById('refresh').innerHTML = request.responseText;
+        refreshArray();
       }
     }
   }
-  request.open('POST', 'addRoom.php', true);
+  request.open('POST', 'filterArrayRoom.php', true);
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   var newRoom = [];
   var idOpenSpace = parseInt(document.getElementById("selectIdOpenspace").value);
@@ -163,13 +141,81 @@ function addRoom(){
   if(idOpenSpace != NaN && typeOpenSpace != NaN && nameRoom.length != 0){
     newRoom.push(idOpenSpace, typeOpenSpace, nameRoom);
     console.log(newRoom);
-    var result = 'result=' + newRoom.join('|');
+    var result = 'addRoom=' + newRoom.join('|');
     console.log(result);
     request.send(result);
 
   }else{
     alert('Veuillez saisir toutes les informations');
   }
+
+
+}
+function deleteRoom(nameRoom){
+  var request = getXhr();
+  request.onreadystatechange = function(){
+
+    if(request.readyState == 4){
+      if(request.status == 200){
+
+        refreshArray();
+      }
+    }
+  }
+  request.open('POST', 'filterArrayRoom.php', true);
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   
-  
+  var name = "deleteRoom=" + nameRoom;
+  request.send(name);
+
+}
+function addEvent(){
+  var request = getXhr();
+  request.onreadystatechange = function(){
+
+    if(request.readyState == 4){
+      if(request.status == 200){
+        //alert(request.responseText.value);
+        closePopup();
+        document.getElementById('eventArrayMiniature').innerHTML = request.responseText;
+      }
+    }
+  }
+  request.open('POST', 'addEvent.php', true);
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  var newEvent = [];
+  var titleEvent = document.getElementById("titleEvent").value;
+  var addressEvent = document.getElementById("addressEvent").value;
+  var dateEvent = document.getElementById("dateEvent").value;
+  var hourEvent = document.getElementById("hourEvent").value;
+  var descriptionEvent = document.getElementById("descriptionEvent").value;
+
+  newEvent.push(titleEvent, addressEvent, dateEvent, hourEvent, descriptionEvent);
+
+  var result = "addEvent=" + newEvent.join('|');
+  console.log(result);
+  request.send(result);
+}
+function setMaintenance(nameRoom, maintenanceOption){
+
+  var request = getXhr();
+  request.onreadystatechange = function(){
+    if(request.readyState == 4){
+      if(request.status == 200){
+        
+
+        refreshArray();
+      }
+    }
+  }
+  request.open('POST', 'filterArrayRoom.php', true);
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  if(maintenanceOption === 1){ //SI L'ON SOUHAITE METTRE EN MAINTENANCE UNE SALLE
+    var result = "nameRoomSetMaintenance=" + nameRoom;
+ 
+  }else if(maintenanceOption === 0){ //SINON ON SOUHAITE ANNULER LA MAINTENANCE
+    var result = "nameRoomUnsetMaintenance=" + nameRoom;
+  }
+
+  request.send(result);
 }

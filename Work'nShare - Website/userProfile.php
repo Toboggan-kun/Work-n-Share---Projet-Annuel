@@ -15,7 +15,7 @@ $db->executeQuery();
 $result = $db->fetchQuery();
 
 ?>
-<center>
+
 
 	<h1><i class="fas fa-user-circle"></i>  Mon espace personnel</h2>
 

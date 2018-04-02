@@ -16,13 +16,13 @@ class Form{
 		return isset($this->data[$index]) ? $this->data[$inputndex] : null;
 	}
 
-	public function input ($name, $function){
+	public function input ($name, $placehodler){
 		if($name === "passwordUser" || $name === "passwordUser2"){
 			return $this->surround('<input type="password" name="'. $name .'"value="'.$this->getValue($name).'">');
 		}else{
 
 			return $this->surround(
-				'<input type="text" name="'. $name .'"value="'.$this->getValue($name).'" onclick="'.$function.'">');
+				'<input type="text" placeholder="'.$this->getValue($placeholder).'" name="'. $name .'" value="'.$this->getValue($name).'">');
 		}
 	}
 	

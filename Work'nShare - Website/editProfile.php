@@ -10,6 +10,4 @@
 	echo '<input type="button" value="Valider"> </input>';
 	echo '<input type="button" value="Annuler"> </input>';
 
-
-echo '</div>';
 ?>

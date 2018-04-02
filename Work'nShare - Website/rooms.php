@@ -22,11 +22,7 @@ $db->executeQuery();
 $typeRoom = $db->fetchQuery();
 
 ?>
-
-<center>
-
-	<h1> Administration Work'n Share </h1>
-	
+<h2>Gestion des salles</h2>
 
 	<form action = "" method="POST">
 		<fieldset style="width: 700px">

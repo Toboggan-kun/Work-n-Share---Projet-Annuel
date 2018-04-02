@@ -5,16 +5,20 @@
 #include <string.h>
 #include "qrcodegen.h"
 #include "qrcodegen.c"
-
+#include <wchar.h>
 
 // Function prototypes
 static void doBasicDemo(void);
 static void printQr(const uint8_t qrcode[]);
 
-
+//wchar_t test = 219;
 // The main application program.
 int main(void) {
 	doBasicDemo();
+
+	char c[3]={226,150,136} ;
+    printf("%s",c) ;
+
 	return EXIT_SUCCESS;
 }
 
