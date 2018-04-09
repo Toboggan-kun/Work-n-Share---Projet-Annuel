@@ -27,4 +27,6 @@
 </header>
 <body>
 <center>
-<h1> Administration Work'n Share </h1>
+<div id="mainTitle">
+	<h1> Administration Work'n Share </h1>
+</div>

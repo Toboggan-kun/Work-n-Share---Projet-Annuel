@@ -25,14 +25,16 @@ if(isset($_POST['idOpenSpace']) && $_POST['idOpenSpace'] != null){
 	$db->prepareQuery('SELECT * FROM room ORDER BY idOpenSpace');
 
 }
-
 if(isset($_POST['nameRoomSetMaintenance'])){
-
+	echo "OKAY";
+}
+if(isset($_POST['nameRoomSetMaintenance'])){ //A CORRIGER
+	echo "ok";
 	$nameRoom = $_POST["nameRoomSetMaintenance"];
 	$room->setMaintenance($nameRoom);
+	echo $nameRoom;
 
 }else if(isset($_POST['nameRoomUnsetMaintenance'])){
-
 	$nameRoom = $_POST["nameRoomUnsetMaintenance"];
 	$room->unsetMaintenance($nameRoom);
 }else if(isset($_POST['deleteRoom'])){
@@ -70,8 +72,8 @@ $window = new Window();
 
 		<?php
 			foreach ($query as $value) {
-				$box1 = $window->createBox("Etes-vous sûr de vouloir mettre en maintenance la salle ".$value[2]."?");
-				//$errorBox = $window->errorBox("Cette salle existe déjà.");
+				
+
 
 		?>
 
@@ -99,15 +101,24 @@ $window = new Window();
 					//OCCUPE PAR
 					echo '<th> A venir </th>';
 					if($value[4] == 0){
-						echo '<th><input type="button" id="room" onclick="setMaintenance(\''.$value[2].'\', 1)" value="Mettre en maintenance"></th>';
+						echo '<th><input type="button" id="room" onclick="showPopup(\''.$value[2].'\')" value="Mettre en maintenance"></th>';
 					}else if($value[4] == 2){
-						echo '<th><input type="button" id="room" onclick="setMaintenance(\''.$value[2].'\', 0)" value="Annuler la maintenance"></th>';
+						echo '<th><input type="button" id="room" onclick="showPopup(\''.$value[2].'\')" value="Annuler la maintenance"></th>';
 					}
 					
 
 					echo '<th><a href="" >Voir la réservation </a></th>';
 
 					echo '<th><input type="button" id="'.$value[2].'" value="Supprimer" onclick="deleteRoom(\''.$value[2].'\')"></input> </th>';
+
+
+					if($value[4] == 2){
+					
+					echo $window->confirmAction("Etes-vous sûr de vouloir mettre en maintenance la salle ".$value[2]."?", $value[2], "setMaintenance(\"".$value[2]."\", 1)");
+					}else if($value[4] == 0){
+						
+						echo $window->confirmAction("Etes-vous sûr de vouloir terminer la maintenance de la salle ".$value[2]."?", $value[2], "setMaintenance(\"".$value[2]."\", 0)");
+					}
 				}
 					?>
 				</tr>

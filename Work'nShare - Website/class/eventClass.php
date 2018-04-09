@@ -19,7 +19,6 @@ class Event{
 		$db->prepareQuery("SELECT COUNT(*) AS numberEvents FROM event");
 		$db->executeQuery();
 		$count = $db->fetchQuery();
-		var_dump($count); //renvoie array = empty
 		return $count;
 
 	}
@@ -35,16 +34,16 @@ class Event{
 		echo $currentTime;
 
 		if($this->currentDate == $this->date){
-			echo "dateok";
+			
 			if($currentTime < $this->time){
-				echo "heureok";
+				
 				return 1;
 			}else{
-				echo "heurepasok";
+				
 				return 0;
 			}
 		}else if($this->currentDate < $this->date){
-			echo "date<this";
+			
 			return 1;
 		}else if($this->currentDate > $this->date){
 			return 0;
@@ -54,13 +53,24 @@ class Event{
 	public function addEvent($title, $address, $date, $time, $description){
 		$this->title = $title;
 		$this->address = $address;
-		//$this->currentDate = date("d-m-Y");
-		//$this->date = $date;
 		$this->time = $time;
 		$this->description = $description;
+
 		$db = new DataBase();
 		$db->connectDataBase();
-		$db->prepareQuery('INSERT INTO event(title, address, dateCreationEvent, dateEvent, hourEvent, descriptionEvent) VALUES(:title, :address, :dateCreationEvent, :dateEvent, :hourEvent, :descriptionEvent)');
+		$db->prepareQuery('INSERT INTO event(
+			title, 
+			address, 
+			dateCreationEvent, 
+			dateEvent, 
+			hourEvent, 
+			descriptionEvent
+			) 
+
+			VALUES(:title, :address, :dateCreationEvent, :dateEvent, :hourEvent, :descriptionEvent)
+
+			');
+
 		$db->executeQuery([
 			"title" => $this->title,
 			"address" => $this->address,
@@ -69,13 +79,16 @@ class Event{
 			"hourEvent" => $this->time,
 			"descriptionEvent" => $this->description
 		]);
+
 		$db->fetchQuery();
 
 
 	}
+
 	public function deleteEvent(){
 
 	}
+	
 	public function modifyEvent(){
 
 	}

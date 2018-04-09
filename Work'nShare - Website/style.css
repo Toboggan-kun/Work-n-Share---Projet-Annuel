@@ -31,13 +31,23 @@
     border-bottom : 1px solid black;
     padding-bottom : 70px;
 }
+/* TITRE PRINCIPAL DE LA PAGE */
+#mainTitle{
+    border-bottom : 1px solid black;
+    padding: 20px;
+}
+h1{
+    padding-top: 15px;
+}
+h2{
 
+}
 /*            POP UP                   */
 /* RAPPEL
     #: SELECTEURS ID
     .: SELECTEURS CLASSE
 */
-#background{
+.background{
     position: fixed;
     left: 0px;
     top: 0px;
@@ -60,7 +70,9 @@
     width: 40%;
     background-color: white;
     border-radius: 10px;
-    padding: 60px;    
+    padding: 60px;
+    display: block;
+
 }
 #miniatureEvent{
 
@@ -73,4 +85,84 @@
 li:hover{
 
     cursor: pointer;
+}
+/* DIV DE L'ESPACE PERSONNEL */
+#contentInfo{
+
+    border-radius: 10px;
+    width: 40%;
+    padding: 30px;
+    margin: 40px;
+    
+    display: block;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+#editProfileFormSpan{
+
+    width: 40%;
+    padding-left: 25px;
+    margin: 20px;
+    display: block;
+    text-align: left;
+    border: none;
+    box-sizing: border-box;
+
+}
+
+span p{
+    text-align: right;
+    display: block;
+
+
+}
+span input{
+
+    text-align: left;
+    display: block;
+
+
+}
+.userInfo{
+    float: left;
+    width: 150px;
+
+}
+
+fieldset{
+    border-radius: 10px;
+}
+select{
+    border-radius: 10px;
+}
+
+
+/* FORMULAIRE DE CREATION D'EVENTS */
+#eventFormContainer{
+
+    border: 1px solid black;
+    border-radius: 2px;
+}
+#undoButton{
+    display: none;
+}
+
+/* GESTION DES MENUS */
+/* DIV MENU ACTUEL */
+#actualMenu{
+    border: 1px solid black;
+    padding: 50px;
+    margin-left: 100px;
+    width: 20%;
+    float: left;
+}
+
+/*EDITION DU MENU*/
+#editMenu{
+    border: 1px solid black;
+    padding: 50px;
+    margin-right: 100px;
+    margin-bottom: 50px;
+    float: right;
+    width: 50%;
 }

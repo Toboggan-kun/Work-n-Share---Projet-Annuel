@@ -9,17 +9,17 @@ class Window{
 
 	}
 
-	public function createBox($message){ //CORPS DE LA FENETRE: MESSAGES D'ALERTES, DE CONFIRMATION, D'ERREURS
+	public function createBox($message, $idDiv, $function){ //CORPS DE LA FENETRE: MESSAGES D'ALERTES, DE CONFIRMATION, D'ERREURS
 		$this->message = $message;
 
 		return
-				"<section id ='background'>
+				"<section id=". $idDiv. " class ='background'>
 		            <div id='window'>
 		                <h2>Attention</h2>
 		                
 		                	<p>" . $this->message . "</p>
-		                	<input type='button' id='close' value='Annuler' onclick='closePopup()'></input>
-		                	<input type='button' id='close' value='Confirmer'></input>
+		                	<input type='button' id='close' value='Annuler' onclick='closePopup(".$idDiv.")'></input>
+		                	<input type='button' id='close' value='Confirmer' onclick='".$function."'></input>
 
 		           
 		            </div>
@@ -30,15 +30,6 @@ class Window{
 		$this->message = $myMessage;
 		$this->optionMessage = $optionMessage;
 
-		/*switch ($this->optionMessage) {
-			case '1':
-				$this->message = "";
-				break;
-			
-			default:
-				$this->message = "";
-				break;
-		}*/
 		return
 				"<section id ='background'>
 		            <div id='window'>
@@ -51,6 +42,26 @@ class Window{
 		           
 		            </div>
 		        </section>";
+	}
+
+	public function confirmAction($message, $idDiv, $function){
+
+		return
+			"<section id=".$idDiv." class='background'>
+			
+		            <div id='window'>
+		                <h2>Attention</h2>
+		                
+		                	<p>" . $message . "</p>
+		                	<input type='button' id='close' value='Annuler' onclick='closePopup(\"".$idDiv."\")'></input>
+		                	
+		            
+		                	<input type='button' id='submitAction' value='Valider' onclick='".$function ."'></input>
+		           
+		            </div>
+		        
+		        </section>";
+
 	}
 
 	public function createMiniatureEventBox($title, $description){

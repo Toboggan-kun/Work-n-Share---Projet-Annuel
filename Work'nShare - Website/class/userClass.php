@@ -33,6 +33,21 @@ class User extends DataBase{
 
 
 	}
+	//A TERMINER
+	public function updateUser($idUser, $nameUser, $surnameUser){
+
+		echo "En cours";
+		$this->idUser = $idUser;
+		$db = new DataBase();
+		$db->connectDataBase();
+		$db->prepareQuery('
+							UPDATE user
+							SET
+							WHERE idUSer = '.$this->idUser.'
+						');
+		$db->executeQuery();
+
+	}
 
 
 }

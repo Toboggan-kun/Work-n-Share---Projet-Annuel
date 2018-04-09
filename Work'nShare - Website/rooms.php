@@ -22,7 +22,7 @@ $db->executeQuery();
 $typeRoom = $db->fetchQuery();
 
 ?>
-<h2>Gestion des salles</h2>
+<h1>Gestion des salles</h1>
 
 	<form action = "" method="POST">
 		<fieldset style="width: 700px">
@@ -45,8 +45,8 @@ $typeRoom = $db->fetchQuery();
 	</form>
 	<div id="response"></div>
 	<?php
-		$popup = new Window();
-		echo $popup->createBox('Voulez vous mettre en maintenance cette salle?');
+		/*$popup = new Window();
+		echo $popup->createBox('Voulez vous mettre en maintenance la salle '.$res[1].'?', $res[1], setMaintenance());*/
 
 	?>
 
@@ -90,7 +90,7 @@ $typeRoom = $db->fetchQuery();
 				<?php
 					//echo $form->input('nameOpenSpace');
 					echo '<input id="nameRoom" type="text" placeholder="Nom de la nouvelle salle"></input>';
-					echo '<br><br><br><input type="button" onclick="addRoom()" value="Ajouter"></input>';
+					echo '<br><br><br><input type="button" onclick="showPopup()" value="Ajouter"></input>';
 
 				?>
 
