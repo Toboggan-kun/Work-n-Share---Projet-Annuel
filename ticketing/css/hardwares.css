@@ -1,0 +1,9 @@
+#table_hardware
+{
+	border-collapse: collapse;
+}
+
+#table_hardware td
+{
+	border: 1px solid black;
+}

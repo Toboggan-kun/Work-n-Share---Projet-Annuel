@@ -1,0 +1,28 @@
+CREATE TABLE ticket
+(
+id_ticket INT PRIMARY KEY NOT NULL AUTO_INCREMENT UNIQUE,
+title VARCHAR(100)
+state TINYINT,
+date_start DATETIME,
+date_close DATETIME,
+author VARCHAR(55)
+)
+
+CREATE TABLE state_ticket_description
+(
+id_state_desc INT PRIMARY KEY NOT NULL AUTO_INCREMENT UNIQUE,
+id_ticket INT,
+date_post DATETIME,
+description TEXT,
+author VARCHAR(55)
+)
+
+CREATE TABLE hardware
+(
+id_hardware INT PRIMARY KEY NOT NULL AUTO_INCREMENT UNIQUE,
+date_purchase DATETIME,
+serial_number VARCHAR(55),
+state INT,
+name VARCHAR(55),
+assignment VARCHAR(55)
+)
