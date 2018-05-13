@@ -7,7 +7,8 @@
 	
 	<title>Work n' share</title>
 
-	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
@@ -15,8 +16,8 @@
 	<!-- Custom styles for our template -->
 	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
 	<link rel="stylesheet" href="assets/css/main.css">
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="assets/css/style.css">
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -41,7 +42,7 @@
 						<a href="index.php">Nos espaces de travail</a>
 					</li>
 					<li><a href="contact.php">Nous contacter</a></li>
-					<li><a class="btn" href="signin.php">S'INSCRIRE / S'ABONNER</a></li>
+					<li><a class="btn" href="inscription/inscription.php">Inscription/Connexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -63,7 +64,7 @@
 		<br> <br>
 		<h2 class="thin">Work n' share</h2>
 		<p class="text-muted">
-			Des locaux tous neufs.
+			Des locaux tous neufs et prêts à vous accueillir.
 		</p>
 	</div>
 	<!-- /Intro-->
@@ -111,22 +112,6 @@
 
 </div>	<!-- /container -->
 	
-	<!-- Social links. @TODO: replace by link/instructions in template -->
-	<section id="social">
-		<div class="container">
-			<div class="wrapper clearfix">
-				<!-- AddThis Button BEGIN -->
-				<div class="addthis_toolbox addthis_default_style">
-				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-				<a class="addthis_button_tweet"></a>
-				<a class="addthis_button_linkedin_counter"></a>
-				<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-				</div>
-				<!-- AddThis Button END -->
-			</div>
-		</div>
-	</section>
-	<!-- /social links -->
 
 	<div id="chatBox"></div>
 	<link rel="stylesheet" href="../messagerie/css/app.css">
@@ -178,7 +163,7 @@
 								<a href="prices.php">Services</a> |
 								<a href="sidebar-right.php">Nos espaces de travail</a> |
 								<a href="contact.php">Nous contacter</a> |
-								<b><a href="signup.php">Se connecter</a></b>
+								<b><a href="signup.php">Inscription/Connexion</a></b>
 							</p>
 						</div>
 					</div>

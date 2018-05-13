@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
-	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
+	<meta name="author"      
 	
 	<title>Work & share</title>
 
@@ -19,6 +19,7 @@
 	<link rel="stylesheet" href="assets/css/main.css">
 	
 	<link rel="stylesheet" href="assets/css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -47,7 +48,7 @@
 						<a href="#">Nos espaces de travail</b></a>
 					</li>
 					<li><a href="contact.php">Nous contacter</a></li>
-					<li><a class="btn" href="signin.php">S'INSCRIRE / S'ABONNER</a></li>
+					<li><a class="btn" href="inscription/inscription.php">Inscription/Connexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>

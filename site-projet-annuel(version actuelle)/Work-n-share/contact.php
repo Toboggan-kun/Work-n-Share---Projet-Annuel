@@ -40,7 +40,7 @@
 						<a href=""">Nos espaces de travail</b></a>
 					</li>
 					<li class="active"><a href="contact.php">Contact</a></li>
-					<li><a class="btn" href="signin.php">SE CONNECTER/ S'INSCRIRE</a></li>
+					<li><a class="btn" href="inscription/inscription.php">Inscription/Connexion</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -74,28 +74,25 @@
 					<form>
 						<div class="row">
 							<div class="col-sm-4">
-								<input class="form-control" type="text" placeholder="Name">
+								<input class="form-control" type="text" placeholder="Nom">
 							</div>
 							<div class="col-sm-4">
 								<input class="form-control" type="text" placeholder="Email">
 							</div>
 							<div class="col-sm-4">
-								<input class="form-control" type="text" placeholder="Phone">
+								<input class="form-control" type="text" placeholder="Numero">
 							</div>
 						</div>
 						<br>
 						<div class="row">
 							<div class="col-sm-12">
-								<textarea placeholder="Type your message here..." class="form-control" rows="9"></textarea>
+								<textarea placeholder="Veuillez taper votre message ci-dessous..." class="form-control" rows="9"></textarea>
 							</div>
 						</div>
 						<br>
 						<div class="row">
-							<div class="col-sm-6">
-								<label class="checkbox"><input type="checkbox"> Sign up for newsletter</label>
-							</div>
 							<div class="col-sm-6 text-right">
-								<input class="btn btn-action" type="submit" value="Send message">
+								<input class="btn btn-action" type="submit" value="Envoyer le message"><br/><br/><br/>
 							</div>
 						</div>
 					</form>
@@ -106,26 +103,12 @@
 			<!-- Sidebar -->
 			<aside class="col-sm-3 sidebar sidebar-right">
 
-				<div class="widget">
-					<h4>Address</h4>
-					<address>
-						2002 Holcombe Boulevard, Houston, TX 77030, USA
-					</address>
-					<h4>Phone:</h4>
-					<address>
-						(713) 791-1414
-					</address>
-				</div>
-
 			</aside>
 			<!-- /Sidebar -->
 
 		</div>
 	</div>	<!-- /container -->
 	
-	<section class="container-full top-space">
-		<div id="map"></div>
-	</section>
 
 	<footer id="footer">
 

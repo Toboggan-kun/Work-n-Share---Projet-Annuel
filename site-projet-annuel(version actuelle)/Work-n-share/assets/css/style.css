@@ -34,19 +34,22 @@ section
 .col-sm-4:nth-child(1) .card,
 .col-sm-4:nth-child(1) .card .title .fa
 {
-	background: linear-gradient(-45deg, #f403d1, #64bdf6);
+	background: linear-gradient(-45deg, #64bdf6, #f321d7);
+	/*background: linear-gradient(-45deg, #f403d1, #64bdf6);*/
 }
 
 .col-sm-4:nth-child(2) .card,
 .col-sm-4:nth-child(2) .card .title .fa
 {
-	background: linear-gradient(-45deg, #ffec61, #f321d7);
+	background: linear-gradient(-45deg, #64bdf6, #f321d7);
+	/*background: linear-gradient(-45deg, #ffec61, #f321d7);*/
 }
 
 .col-sm-4:nth-child(3) .card,
 .col-sm-4:nth-child(3) .card .title .fa
 {
-	background: linear-gradient(-45deg, #24ff72, #9a4eff);
+	background: linear-gradient(-45deg, #64bdf6, #f321d7);
+	/*background: linear-gradient(-45deg, #24ff72, #9a4eff);*/
 }
 
 .card:before
