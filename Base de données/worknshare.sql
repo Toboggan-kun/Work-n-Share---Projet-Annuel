@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Dim 13 Mai 2018 à 18:28
+-- Généré le :  Dim 13 Mai 2018 à 18:43
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -185,29 +185,6 @@ INSERT INTO `event` (`idEvent`, `title`, `dateCreationEvent`, `dateEvent`, `hour
 -- --------------------------------------------------------
 
 --
--- Structure de la table `hardware`
---
-
-CREATE TABLE `hardware` (
-  `id_hardware` int(11) NOT NULL,
-  `date_purchase` datetime DEFAULT NULL,
-  `type` varchar(55) COLLATE latin1_general_ci NOT NULL,
-  `serial_number` varchar(55) COLLATE latin1_general_ci DEFAULT NULL,
-  `state` int(11) DEFAULT NULL,
-  `name` varchar(55) COLLATE latin1_general_ci DEFAULT NULL,
-  `assignment` varchar(55) COLLATE latin1_general_ci DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-
---
--- Contenu de la table `hardware`
---
-
-INSERT INTO `hardware` (`id_hardware`, `date_purchase`, `type`, `serial_number`, `state`, `name`, `assignment`) VALUES
-(1, '1997-12-07 00:00:00', 'Remi', '01', NULL, 'Kun', NULL);
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `hardware2`
 --
 
@@ -255,21 +232,21 @@ INSERT INTO `menu` (`idMenu`, `nameMenu`, `starter`, `dish`, `dessert`, `quantit
 --
 
 CREATE TABLE `openspace` (
-  `idOpenSpace` int(11) NOT NULL,
-  `nameOpenSpace` char(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` int(11) NOT NULL,
+  `nom` varchar(40) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `openspace`
 --
 
-INSERT INTO `openspace` (`idOpenSpace`, `nameOpenSpace`) VALUES
+INSERT INTO `openspace` (`id`, `nom`) VALUES
 (1, 'Bastille'),
-(2, 'République'),
-(3, 'Odéon'),
-(4, 'PlaceItalie'),
+(2, 'Republique'),
 (5, 'Ternes'),
-(6, 'Beaubourg');
+(8, 'Odeon'),
+(9, 'Place d\'italie'),
+(10, 'Beaubourg');
 
 -- --------------------------------------------------------
 
@@ -573,22 +550,19 @@ INSERT INTO `user` (`idUser`, `nameUser`, `surnameUser`, `emailUser`, `passwordU
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `first_name` varchar(50) NOT NULL,
-  `last_name` varchar(50) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `hash` varchar(32) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '0'
+  `pseudo` varchar(255) NOT NULL,
+  `mail` varchar(255) NOT NULL,
+  `motdepasse` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `hash`, `active`) VALUES
-(4, 'Noha', 'Abdelmalki', 'nohabdelmalki1@gmail.com', '$2y$10$6FKqYugxCIAkVIOOqxKjHOxt6yckIuXONlmsmyWMLiodgFnGaAy5.', '55743cc0393b1cb4b8b37d09ae48d097', 0),
-(5, 'Caroline', 'Tang', 'carolinetangsong@gmail.com', '$2y$10$HsauiJKMmZVWqwChEfYcbuhI/MQKo2brc0kHq8epAcyNbKL5ByUgi', '5ef698cd9fe650923ea331c15af3b160', 0),
-(6, 'test', 'nom', 'test@gmail.com', '$2y$10$4OI1tytz24P71SH/wX96aeSdtf1A/.UTe2xOX6r6s4D7gy7ITCbH.', 'afda332245e2af431fb7b672a68b659d', 0);
+INSERT INTO `users` (`id`, `pseudo`, `mail`, `motdepasse`) VALUES
+(1, 'Noha', 'nohabdelmalki1@gmail.com', 'db021ab23a63fb28edcff0d3b56557bb962e6fdf'),
+(2, 'Justin', 'justin@gmail.com', 'db021ab23a63fb28edcff0d3b56557bb962e6fdf'),
+(3, 'Naruto', 'naruto@gmail.com', 'db021ab23a63fb28edcff0d3b56557bb962e6fdf');
 
 --
 -- Index pour les tables exportées
@@ -619,13 +593,6 @@ ALTER TABLE `event`
   ADD PRIMARY KEY (`idEvent`);
 
 --
--- Index pour la table `hardware`
---
-ALTER TABLE `hardware`
-  ADD PRIMARY KEY (`id_hardware`),
-  ADD UNIQUE KEY `id_hardware` (`id_hardware`);
-
---
 -- Index pour la table `hardware2`
 --
 ALTER TABLE `hardware2`
@@ -642,7 +609,7 @@ ALTER TABLE `menu`
 -- Index pour la table `openspace`
 --
 ALTER TABLE `openspace`
-  ADD PRIMARY KEY (`idOpenSpace`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `room`
@@ -713,11 +680,6 @@ ALTER TABLE `equipments`
 ALTER TABLE `event`
   MODIFY `idEvent` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 --
--- AUTO_INCREMENT pour la table `hardware`
---
-ALTER TABLE `hardware`
-  MODIFY `id_hardware` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
 -- AUTO_INCREMENT pour la table `hardware2`
 --
 ALTER TABLE `hardware2`
@@ -731,7 +693,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT pour la table `openspace`
 --
 ALTER TABLE `openspace`
-  MODIFY `idOpenSpace` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT pour la table `room`
 --
@@ -766,7 +728,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
