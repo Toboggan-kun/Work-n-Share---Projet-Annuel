@@ -18,6 +18,7 @@ if(isset($_GET['id']) AND $_GET['id'] > 0)
 	</head>
 	<body>
 		<div align="center">
+			<br/>
 			<h2>Profil de <?php echo $userinfo['pseudo']; ?></h2>
 			<br /><br />
 			Pseudo = <?php echo $userinfo['pseudo']; ?>
@@ -42,7 +43,7 @@ if(isset($_GET['id']) AND $_GET['id'] > 0)
 			<br/><br/><br/><br/>
 			<a href="editionprofil.php"> Editer mon profil</a>
 			<a href="deconnexion.php"> Se déconnecter</a>
-			<a href="#"> Retourner au menu</a>
+			<a href="../index.php"> Retourner au menu</a>
 			<?php
 			}
 			?>
