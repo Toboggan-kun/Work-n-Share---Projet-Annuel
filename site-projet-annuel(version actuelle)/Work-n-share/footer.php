@@ -43,7 +43,7 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="#">Menu</a> | 
+								<a href="index.php">Menu</a> | 
 								<a href="prices.html">Abonnements</a> |
 								<a href="contact.html">Nous contacter</a> |
 								<b><a href="inscription/inscription.php">S'incrire</a></b>

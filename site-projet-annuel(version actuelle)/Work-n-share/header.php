@@ -37,7 +37,7 @@
 					<li class="active"><a href="index.php">Menu</a></li>
 					<li><a href="prices.php">Abonnements</a></li>
 					<li class="dropdown">
-						<a href="#">Nos espaces de travail</a>
+						<a href="espaces.php">Nos espaces de travail</a>
 					</li>
 					<li><a class="btn" href="inscription/inscription.php">Inscription/Connexion</a></li>
 				</ul>
