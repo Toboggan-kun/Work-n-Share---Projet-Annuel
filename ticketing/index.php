@@ -1,6 +1,6 @@
 <?php
 
-$bdd = new PDO('mysql:host=db735400362.db.1and1.com;dbname=db735400362', 'dbo735400362', 'i4w5WN2DMgGbSKC', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+$bdd = new PDO('mysql:host=localhost;dbname=worknshare', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
 include "donnees.php";
 $page = (isset($_GET['page'])) ? $_GET['page'] : "home";

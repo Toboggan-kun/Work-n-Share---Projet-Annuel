@@ -1,0 +1,49 @@
+# depslib dependency file v1.0
+1519219399 source:c:\users\noha west\desktop\qrcode\qrcode\main.c
+	<stdbool.h>
+	<stddef.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"qrcodegen.h"
+	"qrcodegen.c"
+
+1519217293 c:\users\noha west\desktop\qrcode\qrcode\qrcodegen.c
+	<assert.h>
+	<limits.h>
+	<stdlib.h>
+	<string.h>
+	"qrcodegen.h"
+
+1175929546 c:\users\noha west\desktop\qrcode\qrcode\qdbmp.h
+	<stdio.h>
+
+1519207624 source:c:\users\noha west\desktop\qrcode\qrcode\qdbmp.c
+	"qdbmp.h"
+	<stdlib.h>
+	<string.h>
+
+1522682581 source:c:\wamp64\www\projet annuel - work'n share\work-n-share---projet-annuel\mission 1 - gestion des clients\programmes c\qrcode\qrcode\main.c
+	<stdbool.h>
+	<stddef.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"qrcodegen.h"
+	"qrcodegen.c"
+
+1519681837 c:\wamp64\www\projet annuel - work'n share\work-n-share---projet-annuel\mission 1 - gestion des clients\programmes c\qrcode\qrcode\qrcodegen.c
+	<assert.h>
+	<limits.h>
+	<stdlib.h>
+	<string.h>
+	"qrcodegen.h"
+
+1519681837 source:c:\wamp64\www\projet annuel - work'n share\work-n-share---projet-annuel\mission 1 - gestion des clients\programmes c\qrcode\qrcode\qdbmp.c
+	"qdbmp.h"
+	<stdlib.h>
+	<string.h>
+
+1519681837 c:\wamp64\www\projet annuel - work'n share\work-n-share---projet-annuel\mission 1 - gestion des clients\programmes c\qrcode\qrcode\qdbmp.h
+	<stdio.h>
+

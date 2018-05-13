@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Diagramme de Gantt - Réseau (Groupe 19)" company="" webLink="http://" view-date="2018-03-19" view-index="0" gantt-divider-location="693" resource-divider-location="300" version="2.7.2" locale="fr">
+    <description/>
+    <view zooming-state="default:4" id="gantt-chart">
+        <field id="tpd3" name="Nom" width="64" order="0"/>
+        <field id="tpd4" name="Date de début" width="16" order="1"/>
+        <field id="tpd5" name="Date de fin" width="18" order="2"/>
+        <timeline><![CDATA[0]]></timeline>
+        <option id="color.recent"><![CDATA[#ff0000]]></option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nom" width="50" order="0"/>
+        <field id="1" name="Rôle par défaut" width="50" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="true"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" name="Etude de la mission 3" color="#8cb6ce" shape="1,0,1,0,0,1,0,1,1,0,1,0,0,1,0,1" meeting="false" project="true" start="2018-02-02" duration="52" complete="0" priority="2" expand="true">
+            <task id="60" name="Etude des besoins du client (proposer des solutions les plus adaptées)" meeting="false" start="2018-02-02" duration="4" complete="0" expand="true"/>
+            <task id="48" name="Choix du matériel" meeting="false" start="2018-02-05" duration="1" complete="0" expand="true"/>
+            <task id="5" name="Chiffrement financier" meeting="false" start="2018-02-05" duration="4" complete="0" expand="true">
+                <task id="6" name="Chiffrement financier des ressources matérielles" meeting="false" start="2018-02-05" duration="4" complete="0" expand="true"/>
+                <task id="7" name="Chiffrement financier des ressources humaines" meeting="false" start="2018-02-05" duration="4" complete="0" expand="true"/>
+            </task>
+            <task id="66" name="Vérification du chiffrement financier" meeting="false" start="2018-02-08" duration="1" complete="0" expand="true"/>
+            <task id="9" name="Présenter un devis au client et le faire valider" meeting="false" start="2018-02-09" duration="1" complete="0" expand="true"/>
+            <task id="61" name="Commande du matériel" meeting="false" start="2018-02-10" duration="2" complete="0" expand="true"/>
+            <task id="67" name="Réception du matériel" meeting="false" start="2018-02-10" duration="20" complete="0" expand="true"/>
+            <task id="12" name="Mise en place du matériel (câbles et équipements)" meeting="false" start="2018-03-01" duration="15" complete="0" expand="true"/>
+            <task id="10" name="(Sur Cisco Packet Tracer)" meeting="false" start="2018-03-15" duration="5" complete="0" expand="true">
+                <task id="13" name="Configuration des routeurs / ordinateurs" meeting="false" start="2018-03-15" duration="5" complete="0" expand="true"/>
+                <task id="14" name="Configuration du NAT/PAT" meeting="false" start="2018-03-15" duration="5" complete="0" expand="true"/>
+                <task id="15" name="Configuration des règles de sécurité (ACL)" meeting="false" start="2018-03-15" duration="5" complete="0" expand="true"/>
+                <task id="16" name="Configuration des tunnels Ipsec" meeting="false" start="2018-03-15" duration="5" complete="0" expand="true"/>
+                <task id="17" name="Configuration du serveur Web" meeting="false" start="2018-03-15" duration="5" complete="0" expand="true"/>
+            </task>
+            <task id="62" name="Configuration du serveur Web personnel sur machine" meeting="false" start="2018-03-20" duration="1" complete="0" expand="true"/>
+            <task id="18" name="Déploiement" meeting="false" start="2018-03-20" duration="1" complete="0" expand="true">
+                <task id="20" name="Configurations sur machines virtuelles (ordinateurs)" meeting="false" start="2018-03-20" duration="1" complete="0" expand="true"/>
+            </task>
+            <task id="49" name="Test des configurations" meeting="false" start="2018-03-20" duration="1" complete="0" expand="true">
+                <task id="51" name="Machines" meeting="false" start="2018-03-20" duration="1" complete="0" expand="true"/>
+                <task id="52" name="Routeurs" meeting="false" start="2018-03-20" duration="1" complete="0" expand="true"/>
+                <task id="53" name="Réseau" meeting="false" start="2018-03-20" duration="1" complete="0" expand="true"/>
+                <task id="54" name="Tunnels IPsec" meeting="false" start="2018-03-20" duration="1" complete="0" expand="true"/>
+                <task id="55" name="VLAN entre Client et Salariés" meeting="false" start="2018-03-20" duration="1" complete="0" expand="true"/>
+            </task>
+            <task id="57" name="Présentation des recettes réalisés" meeting="false" start="2018-03-25" duration="1" complete="0" expand="true"/>
+        </task>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <taskdisplaycolumns>
+        <displaycolumn property-id="tpd2" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd7" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd12" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd3" order="0" width="444" visible="true"/>
+        <displaycolumn property-id="tpd4" order="1" width="115" visible="true"/>
+        <displaycolumn property-id="tpd5" order="2" width="130" visible="true"/>
+        <displaycolumn property-id="tpd6" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd10" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd11" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd1" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd9" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd8" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd13" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd0" order="-1" width="75" visible="false"/>
+    </taskdisplaycolumns>
+    <previous/>
+    <roles roleset-name="Default"/>
+    <roles roleset-name="SoftwareDevelopment"/>
+</project>
