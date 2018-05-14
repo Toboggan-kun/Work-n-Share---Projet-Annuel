@@ -1052,20 +1052,21 @@ function addBooking(){
         loadPage('bookingFormErrors', 'errors_booking');
         
         document.getElementById('errors').innerHTML = request.responseText;
+        if(!document.getElementById('errors')){
+          document.location.replace('success.php');
+        }
       }
     }
 
   }
 
   //RECUPERE LES INFORMATIONS DU FORMULAIRE DE PAIEMENT
-  cardnumber_booking = document.getElementById('idCard').value;
-  cardsecurity_booking = document.getElementById('security_code').value;
-  cardmonth_booking = document.getElementById('card_month').value;
-  cardyear_booking = document.getElementById('card_year').value
-
-  request.open('POST', 'bookingFormErrors.php', true); 
-  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  result = 
+  if(document.getElementById('idCard') && document.getElementById('security_code') && document.getElementById('card_month') && document.getElementById('card_year')){
+    cardnumber_booking = document.getElementById('idCard').value;
+    cardsecurity_booking = document.getElementById('security_code').value;
+    cardmonth_booking = document.getElementById('card_month').value;
+    cardyear_booking = document.getElementById('card_year').value;
+    result = 
     "openspace_booking=" + openspace_booking + 
     "&typeroom_booking=" + typeroom_booking +
     "&date_booking=" + date_booking + 
@@ -1078,6 +1079,23 @@ function addBooking(){
     "&cardsecurity_booking=" + cardsecurity_booking + 
     "&cardmonth_booking=" + cardmonth_booking + 
     "&cardyear_booking=" + cardyear_booking;
+
+  }else{
+    result = 
+    "openspace_booking=" + openspace_booking + 
+    "&typeroom_booking=" + typeroom_booking +
+    "&date_booking=" + date_booking + 
+    "&hourentrance_booking=" + hourentrance_booking + 
+    "&hourexit_booking=" + hourexit_booking + 
+    "&quantityequipment1_booking=" + quantityequipment1_booking + 
+    "&quantityequipment2_booking=" + quantityequipment2_booking +
+    "&quantitymenu_booking=" + quantitymenu_booking;
+  }
+  
+
+  request.open('POST', 'bookingFormErrors.php', true); 
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  
 
   console.log(result);
   request.send(result);

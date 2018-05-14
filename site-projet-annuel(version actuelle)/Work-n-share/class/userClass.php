@@ -94,7 +94,38 @@ class User{
 			self::isError();
 		}
 
-		return;
+		return $this->error;
+	}
+	public function getSub($id){
+		$this->db->prepareQuery("SELECT subscription FROM user WHERE idUser = :idUser");
+
+		$this->db->executeQuery	([
+			"idUser" => $id
+		]);
+		return $this->db->fetchQuery();
+	}
+	public function loadActualSub($id){
+		$this->db->prepareQuery("SELECT subscription FROM user WHERE idUser = :idUser");
+
+		$this->db->executeQuery	([
+			"idUser" => $id
+		]);
+		$res = $this->db->fetchQuery();
+		
+		if($res[0]['subscription'] == 1 || $res[0]['subscription'] == 2){
+			$sub = 1;
+		}else if($res[0]['subscription'] == 3 || $res[0]['subscription'] == 4){
+			$sub = 2;
+		}else if($res[0]['subscription'] == 0){
+			$sub = 0;
+		}
+		$this->db->prepareQuery("SELECT * FROM subscription WHERE idSubscription = :idSubscription");
+		$this->db->executeQuery	([
+			"idSubscription" => $sub
+		]);
+
+		return $this->db->fetchQuery();
+		
 	}
 	public function convertIntSubtoString($sub_int){
 

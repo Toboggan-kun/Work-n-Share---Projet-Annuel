@@ -47,7 +47,14 @@
 					<li class="dropdown">
 						<a href="espaces.php">Nos espaces de travail</a>
 					</li>
-					<li><a class="btn" href="inscription/inscription.php">Inscription/Connexion</a></li>
+					<?php
+						if(isset($_SESSION['idUser'])){
+							echo '<li><a class="btn" href="booking.php">Réserver une salle</a></li>';
+						}else{
+							echo '<li><a class="btn" href="inscription/inscription.php">Inscription/Connexion</a></li>';
+						}
+					?>
+					
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>

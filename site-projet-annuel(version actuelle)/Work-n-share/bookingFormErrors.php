@@ -39,7 +39,6 @@ if(	isset($_POST['openspace_booking']) &&
 
 		$booking->createBooking($_POST["openspace_booking"], $hourentrance_booking, $hourexit_booking, $_POST['quantityequipment1_booking'], $_POST['quantityequipment2_booking'], $_POST['quantitymenu_booking']);
 
-		
 	}
 	
 

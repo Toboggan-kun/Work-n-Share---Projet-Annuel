@@ -3,13 +3,13 @@
 	<?php
 
 		require "class/bookingClass.php";
-		require "user/userClass.php";
+		require "class/userClass.php";
 
 		$user = new User();
 
 		$booking  = new Booking();
-		$price = $user->
-
+		$sub = $user->getSub(1);
+		$res = $user->loadActualSub(1);
 
 		if(isset($_POST['openspace_booking']) &&
 			isset($_POST['typeroom_booking']) &&
@@ -19,6 +19,33 @@
 			isset($_POST['quantityequipment1_booking']) &&
 			isset($_POST['quantityequipment2_booking']) &&
 			isset($_POST['quantitymenu_booking'])){
+
+			if($sub[0]['subscription'] == 1 || $sub[0]['subscription'] == 1 || $sub[0]['subscription'] == 2){
+				$price_sub = $res[0]['firstHourPrice'];
+				$price_sub_plus = $res[0]['halfHourPrice'];
+			}else{
+				$price_sub = 0;
+			}
+
+			$price = 0;
+
+			$hours_booking_total = $_POST['hourexit_booking'] - $_POST['hourentrance_booking'];
+			if($hours_booking_total > 5){
+				if($sub[0]['subscription'] == 2 || $sub[0]['subscription'] == 4){
+					$price += $res[0]['engagementPrice'];
+				}else{
+					$price += $res[0]['noengagementPrice'];
+				}
+			}else{
+
+				$price += $hours_booking_total * $price_sub;
+			}
+
+			$price += $_POST['quantityequipment1_booking'] * 3.8;
+			$price += $_POST['quantityequipment2_booking'] * 15;
+
+
+
 			echo '
 			<div class="col-sm-12">
 			<div class="well well-lg">
@@ -82,7 +109,7 @@
 				      echo '</tr>
 				      <tr>
 				      	<th>Total</th>
-				      	<td>'..'</td>
+				      	<td>'.$price.'€</td>
 				      </tr>
 				     </tbody>
 				</table>
