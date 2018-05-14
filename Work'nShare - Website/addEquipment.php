@@ -40,6 +40,7 @@ $result = $db->fetchQuery();
 							<option>Imprimante</option>
 							<option>Machine à canettes</option>
 							<option>Machine à café</option>
+							<option>Multiprise 4 entrées</option>
 						</select>
 				      </div>
 				    </div>

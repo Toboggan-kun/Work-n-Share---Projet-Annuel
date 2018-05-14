@@ -79,6 +79,7 @@ function showPopup(idDiv){
 
 }
 
+
 function closePopup(idDiv){
   console.log(idDiv);
   var popup = document.getElementById(idDiv);
@@ -739,10 +740,12 @@ function nextPage(){
       if(request.status == 200){ //SI STATUT OK
 
         closePopup('bookingFormStep1'); //REND LA PAGE 1 INVISIBLE
+        closePopup('equip');
         document.getElementById('bookingFormStep2').innerHTML = request.responseText;
         showPopup('recapBooking'); //AFFICHE LA PAGE QUI ETAIT CACHEE DE BASE
         showPopup('paymentForm'); //AFFICHE LE FORMULAIRE DE PAIEMENT
         showPopup('confirmBooking');
+        showPopup('payment_form');
       }
     }
 
@@ -771,7 +774,9 @@ function previousPage(){
   closePopup('recapBooking'); //N'AFFICHE PLUS LE RECAP DE LA RESERVATION
   closePopup('paymentForm'); //N'AFFICHE PLUS LE FORMUALAIRE DE PAIEMENT
   closePopup('confirmBooking');
+  closePopup('bookingFormStep2');
   showPopup('bookingFormStep1'); //REAFFICHE LE FORMULAIRE DE RESERVATION
+  showPopup('equip');
 
 
 }
@@ -814,7 +819,7 @@ function getHour(id){
   request.open('POST', 'bookingForm.php', true);
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   //request.open('GET', 'bookingForm.php?hourentrance='+selectedHour, true);
-  result = 'entrance=' + hourentrance_booking + '&day_booking=' + date_booking + '&nameOpenspace_booking=' + openspace_booking;
+  result = 'entrance=' + hourentrance_booking + '&day_booking=' + date_booking + '&nameOpenspace_booking=' + openspace_booking + '&room_value=' + room_booking + "&date_value=" + date_booking;
   //hourentrance=17:00
   console.log(result);
   request.send(result);
@@ -871,8 +876,13 @@ function getQuantity(){
     }
 
   }
-  quantityequipment1_booking = document.getElementById('equip4').value;
-  quantityequipment2_booking = document.getElementById('computer').value;
+  if(document.getElementById('equip4')){
+    quantityequipment1_booking = document.getElementById('equip4').value;
+  }
+  if(document.getElementById('computer')){
+    quantityequipment2_booking = document.getElementById('computer').value;
+  }
+  
   quantitymenu_booking = document.getElementById('qtyMenu').value;
   request.open('POST', 'bookingFormConfirm.php', true);
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -881,6 +891,14 @@ function getQuantity(){
   //hourentrance=17:00
   console.log(result);
   request.send(result);
+}
+function getQuantityOnchange(){
+  quantityequipment1_booking = document.getElementById('equip4').value;
+  console.log(quantityequipment1_booking);
+  document.getElementById('qty_data').innerHTML = quantityequipment1_booking;
+  quantityequipment2_booking = document.getElementById('computer').value;
+  document.getElementById('qty_data2').innerHTML = quantityequipment2_booking;
+
 }
 function getTypeRoom(id) {
     console.log("getTypeRoom");
@@ -934,9 +952,9 @@ function getTypeRoom(id) {
 }
 
 
-function getOpenspace(id){
+function getOpenspace(){
   console.log("getOpenspace");
-  openspace_booking = id;
+  openspace_booking = document.getElementById('openspaceValue').value;
   var request = getXhr(); //INSTANCIATION DE L'OBJET XHR
 
   request.onreadystatechange = function(){
@@ -952,7 +970,7 @@ function getOpenspace(id){
     }
 
   }
-  console.log(id);
+  console.log(openspace_booking);
   request.open('POST', 'bookingForm.php', true);
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   result = 'openspace=' + openspace_booking + "&type=" + typeroom_booking;
@@ -1007,7 +1025,7 @@ function getDate(){
         
         document.getElementById('selectScheduleEntrance').innerHTML = request.responseText;
         showPopup('hourEntrance');
-        console.log("OK");
+        //console.log("OK");
       }
     }
 
@@ -1017,7 +1035,7 @@ function getDate(){
 
   request.open('POST', 'bookingForm.php', true);
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  result = 'date=' + date_booking + "&openspace=" + openspace_booking + "&type=" + typeroom_booking + "&room=" + room_booking;
+  result = 'date=' + date_booking + "&openspace2=" + openspace_booking + "&type=" + typeroom_booking + "&room=" + room_booking;
   console.log(result);
   request.send(result);
 }
@@ -1234,7 +1252,11 @@ function getSubscription(){
     if(request.readyState == 4){
 
       if(request.status == 200){ //SI STATUT OK
-        
+        if(subscription == "Sans abonnement"){
+          showPopup('nextPage');
+        }else{
+          closePopup('nextPage');
+        }
         //showPopup('sub_info');
         document.getElementById('sub_info').innerHTML = request.responseText;
         
@@ -1314,6 +1336,11 @@ function validSubscription(){
 
         document.getElementById('paymentFormSub').innerHTML = request.responseText;
         showPopup("page2_payment");
+        showPopup('payment_form_div');
+        if(!document.getElementById('errors')){
+          document.location.replace('success.php');
+        }
+        
         
       }
     }
@@ -1332,11 +1359,19 @@ function validSubscription(){
   request.send(result);
   console.log(result);
 }
+function switch_div(){
+  showPopup('payment_form_div');
+  closePopup('alert_sub');
+}
 function nextPageSubscription(){
   closePopup('sub_part3');
   closePopup('sub_part2');
   closePopup('sub_part1');
   showPopup('page2_payment');
+
+  
+
+
 }
 
 function previousPageSubscription(){

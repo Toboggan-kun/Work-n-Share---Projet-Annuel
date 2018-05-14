@@ -119,7 +119,8 @@ class Window{
 	public function createMiniatureRoomBox($title, $description, $id){
 		return 
 			'
-			<div id="miniatureRoom">
+			
+			<div id="miniatureRoom" class="col-lg-4">
 
 				<button type="button" id="typeRoom'.$id.'" onclick="getTypeRoom('.$id.')" class="btn-default" value="'.$id.'">
 				<li>
@@ -128,9 +129,11 @@ class Window{
 					</div>
 					<h3>'. $title . '</h3>
 					<p>' . $description .  '</p>
-					</div>
-				</li></button>
+					
+				<li>
+				</button>
 			</div>
+
 
 			';
 	}

@@ -2,7 +2,16 @@
 
 	<?php
 
-		if(isset($_POST['openspace_booking']) &&
+		require "class/bookingClass.php";
+		require "user/userClass.php";
+
+		$user = new User();
+
+		$booking  = new Booking();
+		
+
+
+		if(	isset($_POST['openspace_booking']) &&
 			isset($_POST['typeroom_booking']) &&
 			isset($_POST['date_booking']) &&
 			isset($_POST['hourentrance_booking']) &&
@@ -10,14 +19,13 @@
 			isset($_POST['quantityequipment1_booking']) &&
 			isset($_POST['quantityequipment2_booking']) &&
 			isset($_POST['quantitymenu_booking'])){
+			
 			echo '
+			<div class="col-sm-12">
+			<div class="well well-lg">
 			<div id="recapBooking" class="container" style="display: none;">
 				<h2>Récapitulatif de votre demande</h2>
-				
-			  	<div class="page-header">
-			  		<h2>Vous avez demandé</h2>
-				</div>
-				<table class="table-responsible">
+				<table class="table">
 				    <tbody>
 				      <tr>
 				      	<th>Lieu</th>
@@ -50,15 +58,22 @@
 				      	<th>Options</th>
 				        <td></td>
 				      </tr>
-				      <tr>
+				      ';
+				      if($_POST['quantityequipment1_booking'] != 'undefined'){
+				      	echo '<tr>
 				      	<td></td>
 				        <td>'.$_POST['quantityequipment1_booking']." multiprises à 4 entrées".'</td>
-				      </tr>
-				      <tr>
+				      </tr>';
+				      }
+				      if($_POST['quantityequipment2_booking'] != 'undefined'){
+				      	echo '<tr>
 				      	<td></td>
 				        <td>'.$_POST['quantityequipment2_booking']." ordinateurs portables".'</td>
-				      </tr>
-				      <tr>
+				      </tr>';
+				      }
+				      
+				      echo 
+				      '<tr>
 				      	<td></td>';
 				      	if($_POST['quantitymenu_booking'] != 0) echo
 				        '<td>'.$_POST['quantitymenu_booking']." plateaux repas".'</td>';
@@ -66,12 +81,38 @@
 				        '<td>'.$_POST['quantitymenu_booking']." plateau repas".'</td>';
 				      	
 				      echo '</tr>
+				      <tr>
+				      	<th>Total</th>
+				      	<td>'..'</td>
+				      </tr>
 				     </tbody>
 				</table>
 
+			</div>
+			</div>
 			</div>';
+			$card = $booking->checkIfCardExist(1);
+			
+			if(!empty($card) || $card != null){
+				foreach ($card as $data) {
+				
+				}
+				$card_number = $booking->hideCardNumber($data[1]);
+				$date_expiration = date("m-Y", strtotime($data[3]));
+				echo '<div class="col-sm-12" id="paymentForm" style="display: block;"> <div class="well well-lg">
+						<h3><i class="far fa-credit-card"></i>  Votre carte de crédit</h3>
+						<hr>
+
+						<center>
+							<p>'.$card_number.'</p>
+							<p>'.$date_expiration.'</p>
+						</center>
+
+					</div>
+					</div>';
+			}else{
 			echo '
-				<div id="paymentForm" class="container" style="display: none;">
+				<div id="paymentForm" class="container" style="display: block;">
 					<div class="page-header">
 				  		<h2>Enregistrer vos coordonnées bancaires</h2>
 
@@ -107,8 +148,10 @@
 
 						
 					</form>
-				</div>';?>
-			<div id="confirmBooking" class="container" style="display: none;">
+				</div>';
+			}
+			?>
+			<div id="confirmBooking" class="container">
 				<div id="errors_booking"></div>
                 <ul class="pager">
                     <li class="previous"><a onclick="previousPage()">Retour en arrière</a></li>

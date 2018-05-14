@@ -19,7 +19,7 @@ class Booking{
 	public $message;
 	public $listOfErrorsBooking = array();
 
-
+	
 	public function __construct(){
 		$db = new DataBase();
 		$this->db = $db;
@@ -172,6 +172,7 @@ class Booking{
 		if($date < $_SESSION['currentDateEN'] || $date == null){
 			$this->error = true;
 			$this->listOfErrorsBooking[] = $this->message->listOfErrorsBooking(3);
+			self::isError();
 		}
 		return $this->error;
 	}
@@ -197,7 +198,7 @@ class Booking{
 	}
 
 	public function calculSchedule($date, $room){
-
+		
 		$this->db->prepareQuery('SELECT DISTINCT dateBookingStart, dateBookingEnd FROM booking AS b, room AS r WHERE b.idRoom = (SELECT DISTINCT r.idRoom FROM room WHERE r.nameRoom = :nameRoom)');
 
 		$this->db->executeQuery([
@@ -206,19 +207,39 @@ class Booking{
 
 
 		]);
-
 		$result = $this->db->fetchQuery();
-		//var_dump($result);
 		
 
 		if(empty($result)){
 
-			return null;
+			$error = null;
 		}else{
-			$startHour = date("H:i", strtotime($result[0]["dateBookingStart"]));
-			$endHour = date("H:i", strtotime($result[0]["dateBookingEnd"]));
-			return $startHour."-".$endHour;
+			$dateStart = date('H:i:s', strtotime($result[0]['dateBookingStart']));
+			$date = $date.$dateStart;
+			$date = date("Y-m-d H:i:s", strtotime($date));
+			$this->db->prepareQuery('SELECT DISTINCT dateBookingStart, dateBookingEnd FROM booking AS b, room AS r WHERE b.idRoom = (SELECT DISTINCT r.idRoom FROM room WHERE b.dateBookingStart = :dateBookingStart AND r.nameRoom = :nameRoom)');
+
+			$this->db->executeQuery([
+
+				"nameRoom" => $room,
+				"dateBookingStart" => $date
+			]);
+			$result2 = $this->db->fetchQuery();
+		
+			if(empty($result2)){
+
+				$error = null;
+			}else{
+
+				$startHour = date("H:i", strtotime($result2[0]["dateBookingStart"]));
+				$endHour = date("H:i", strtotime($result2[0]["dateBookingEnd"]));
+				$error =  $startHour."-".$endHour;
+			}
 		}
+
+		return $error;
+
+
 		
 	}
 	public function choseRoom($idOpenSpace, $type){
@@ -294,6 +315,35 @@ class Booking{
 		}
 
 		return $code;
+	}
+
+	public function checkIfCardExist($user){
+		
+		$this->db->prepareQuery('SELECT * FROM card WHERE idUser = :idUser');
+
+		$this->db->executeQuery([
+
+			"idUser" => $user
+
+
+		]);
+
+		return $result = $this->db->fetchQuery();
+
+
+	}
+
+	public function hideCardNumber($card){
+
+		$array = $card;
+
+		for ($i=0; $i < 12; $i++) { 
+			$array[$i] = "*"; // **** **** **** XXXX
+		}
+		
+
+		return $array;
+
 	}
 
 

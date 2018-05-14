@@ -49,6 +49,13 @@ class Equipment{
 		]);
 		return $this->db->fetchQuery();
 	}
+	public function countEquipmentByType($typeEquipment){
+		$this->db->prepareQuery('SELECT COUNT(typeEquipment) FROM equipments WHERE typeEquipment = :typeEquipment');
+		$this->db->executeQuery([
+			"typeEquipment" => $typeEquipment
+		]);
+		return $this->db->fetchQuery();
+	}
 	public function loadTypeEquipment(){
 		$this->db->prepareQuery('SELECT DISTINCT typeEquipment FROM equipments');
 		$this->db->executeQuery();

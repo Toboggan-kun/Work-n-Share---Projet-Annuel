@@ -7,13 +7,17 @@ $user = new User();
 
 $user_data = $user->laodUserById(1);
 $subscription = $user->convertIntSubtoString($user_data[0]['subscription']);
-
+if($user_data[0]['subscription'] == 1 || $user_data[0]['subscription'] == 3){
+	$engagement = "sans engagement";
+}else if($user_data[0]['subscription'] == 2 || $user_data[0]['subscription'] == 4){
+	$engagement = "avec engagement";
+}
 ?>
 <div class="page-header">
   <h2>Souscrivez à un abonnement Work'n Share</h2>
 </div>
 
-<div class="well well-lg"><h3>Vous possedez actuellement l'abonnement : <b><?=$subscription?></b></h3></div>
+<div class="well well-lg"><h3>Vous possedez actuellement l'abonnement : <b><?=$subscription?> <?=$engagement?></b></h3></div>
 <div id="page2_payment" class="col-sm-12" style="display: none"></div>
 	<div class="col-sm-7">
 	<div id="sub_part1" class="well well-lg" onchange="getSubscription()">
@@ -22,6 +26,12 @@ $subscription = $user->convertIntSubtoString($user_data[0]['subscription']);
 			if($user_data[0]['subscription'] == 0){
 				echo '<label class="radio-inline"><input id="abo1" type="radio" name="optradio" value="Abonnement simple">Abonnement simple</label>
 				<label class="radio-inline"><input type="radio" id="abo2" name="optradio" value="Abonnement résident">Abonnement résident</label>';
+			}else if($user_data[0]['subscription'] == 1 || $user_data[0]['subscription'] == 2){
+				echo '<label class="radio-inline"><input id="abo1" type="radio" name="optradio" value="Sans abonnement">Sans abonnement</label>
+				<label class="radio-inline"><input type="radio" id="abo2" name="optradio" value="Abonnement résident">Abonnement résident</label>';
+			}else if($user_data[0]['subscription'] == 3 || $user_data[0]['subscription'] == 4){
+				echo '<label class="radio-inline"><input id="abo1" type="radio" name="optradio" value="Sans abonnement">Sans abonnement</label>
+				<label class="radio-inline"><input type="radio" id="abo2" name="optradio" value="Abonnement résident">Abonnement simple</label>';
 			}
 		?>
 		<hr>

@@ -51,8 +51,8 @@ class Menu{
 		if($this->isMainMenu == 1 || $this->isMainMenu == 0){
 			$db = new DataBase();
 			$db->prepareQuery('
-				INSERT INTO menu(nameMenu, starter, dish, dessert, quantityMenu, stateMenu) 
-				VALUES(:nameMenu, :starter, :dish, :dessert, :quantityMenu, :stateMenu)');
+				INSERT INTO menu(nameMenu, starter, dish, dessert, quantityMenu, stateMenu, price_menu) 
+				VALUES(:nameMenu, :starter, :dish, :dessert, :quantityMenu, :stateMenu, :price_menu)');
 			$db->executeQuery([
 
 				"nameMenu" => $this->nameMenu,
@@ -60,7 +60,8 @@ class Menu{
 				"dish" => $this->dish,
 				"dessert" => $this->dessert,
 				"quantityMenu" => $this->quantity,
-				"stateMenu" => $this->isMainMenu
+				"stateMenu" => $this->isMainMenu,
+				"price_menu" => 4.5
 
 			]);
 			

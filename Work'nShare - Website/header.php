@@ -43,7 +43,6 @@ if(isset($_SESSION['error'])){
 	    <span class="caret"></span></a>
 	    <ul class="dropdown-menu">
 	      	<li><a href="manageUsers.php"><i class="fas fa-users"></i> Clients</a></li>
-	    	<li><a href="staff.php"><i class="fas fa-users"></i> Salariés</a></li>
 	    </ul>
 	  	</li>
 		<li><a href="menu.php"><i class="fas fa-utensils"></i> Menu </a></li>

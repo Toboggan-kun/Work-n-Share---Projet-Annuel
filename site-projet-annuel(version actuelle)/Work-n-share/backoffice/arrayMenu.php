@@ -46,6 +46,7 @@
 					<th>Plat</th>
 					<th>Dessert</th>
 					<th>Quantité</th>
+					<th>Prix</th>
 					<th colspan="2">Actions</th>
 				</tr>
 			</thead>
@@ -66,13 +67,9 @@
 								echo '<td>'.$value[2].'</td>'; //ENTREE
 								echo '<td>'.$value[3].'</td>'; //PLAT
 								echo '<td>'.$value[4].'</td>'; //DESSERT
-								if($value[5] == 0){
-									echo "<td style='color:red'>Epuisé</td>";
-								}else if($value[5] < 10){
-									echo '<td style="color:orange">'.$value[5].'</td>'; //QUANTITE
-								}
+								echo '<td>'.$value[5].'</td>'; //QUANTITE
+								echo '<td>'.$value[8].'€</td>'; //PRIX
 								
-								echo '<td><button type="button" class="btn btn-warning">Modifier</button></td>';
 								echo '<td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#'.$titleMenu.'">Supprimer</button></td>';
 								//echo $deleteWindow->confirmAction("Etes-vous sûr de vouloir supprimer le menu ".$value[1]."?", $value[1], "deleteMenu(\"".$value[1]."\")");
 								echo $deleteWindow->confirmAction('Etes-vous sûr de vouloir supprimer le menu '.$value[1].'?', $titleMenu, 'deleteMenu(\''.$value[1].'\')');

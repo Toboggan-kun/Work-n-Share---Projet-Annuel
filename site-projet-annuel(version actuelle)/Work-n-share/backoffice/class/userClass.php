@@ -1,8 +1,8 @@
 <?php
 
 require_once "conf.inc.php";
-require "class/dataBaseClass.php";
-require "class/messageClass.php";
+require_once "class/dataBaseClass.php";
+require_once "class/messageClass.php";
 
 class User{
 
@@ -207,6 +207,61 @@ class User{
 		}
 		self::isError();
 		return $this->error;
+	}
+
+	public function addCard($card_number, $card_security, $card_month, $card_year, $idUser){
+		var_dump($card_number);
+		var_dump($card_security);
+
+		$card_expiration_date = $card_year."-".$card_month;
+
+		$card_expiration_date = date("Y-m-d", strtotime($card_expiration_date));
+	
+		$this->db->prepareQuery("INSERT INTO card(card_number, card_security, card_expiration_date, idUser) VALUES(:card_number, :card_security, :card_expiration_date, :idUser)");
+
+		$this->db->executeQuery	([
+			"card_number" => $card_number,
+			"card_security" => $card_security,
+			"card_expiration_date" => $card_expiration_date,
+			"idUser" => $idUser
+		 									]);
+		
+
+	}
+	public function addSubscription($idUser, $subscription, $engagement){
+		$subscription_date = $_SESSION['currentDateEN'];
+		/*
+			0 = SANS ABONNEMENT
+			1 = ABONNEMENT SIMPLE SANS ENGAGEMENT
+			2 = ABONNEMENT SIMPLE AVEC ENGAGEMENT
+			3 = ABONNEMENT RESIDENT SANS ENGAGEMENT
+			4 = ABONNEMENT RESIDENT AVEC ENGAGEMENT
+		*/
+		$value;
+
+		if($subscription == "Sans abonnement"){
+			$value = 0;
+		}else if($subscription == "Abonnement simple" && $engagement == 0){
+			$value = 1;
+			var_dump($value);
+		}else if($subscription == "Abonnement simple" && $engagement == 1){
+			$value = 2;
+		}else if($subscription == "Abonnement résident" && $engagement == 0){
+			$value = 3;
+		}else if($subscription == "Abonnement résident" && $engagement == 1){
+			$value = 4;
+		}
+		$this->db->prepareQuery('
+							UPDATE user
+							SET subscription = :subscription, subscriptionDate = :subscriptionDate
+							WHERE idUser = :idUser
+						');
+		$this->db->executeQuery([
+			"subscription" => $value,
+			"idUser" => $idUser,
+			"subscriptionDate" => $_SESSION['currentDateEN']
+		]);
+
 	}
 
 

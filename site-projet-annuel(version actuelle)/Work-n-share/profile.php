@@ -1,7 +1,7 @@
 <?php
 /* Displays user information and some useful messages */
 session_start();
-
+include "header.php";
 // Check if user is logged in using the session variable
 if ( $_SESSION['logged_in'] != 1 ) {
   $_SESSION['message'] = "Vous devez d'abord vous connecter avant d'accéder à votre page!";
