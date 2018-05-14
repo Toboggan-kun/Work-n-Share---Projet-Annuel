@@ -1,24 +1,21 @@
 <?php
 session_start();
+ini_set("display_errors",0);
 
 $bdd = new PDO('mysql:host=127.0.0.1;dbname=worknshare', 'root', '');
-
-if(isset($_POST['formconnexion']))
-
-{
-	$mailconnect = htmlspecialchars($_POST['mailconnect']);
-	$mdpconnect = sha1($_POST['mdpconnect']);
-	if(!empty($mailconnect) AND !empty($mdpconnect))
+	if(!empty($_POST['emailUser']) AND !empty($_POST['passwordUser']))
 	{
-		$requser = $bdd->prepare("SELECT * FROM users WHERE mail = ? AND motdepasse = ?");
-		$requser->execute(array($mailconnect, $mdpconnect));
+		$emailUser = htmlspecialchars($_POST['emailUser']);
+		$passwordUser = sha1($_POST['passwordUser']);
+
+		$requser = $bdd->prepare("SELECT * FROM user WHERE emailUser = ? AND passwordUser = ?");
+		$requser->execute([$emailUser, $passwordUser]);
+		$result = $requser->fetch(PDO::FETCH_ASSOC);
 		$userexist = $requser->rowCount();
 		if($userexist == 1)
 	{
-		$userinfo = $requser->fetch();
-		$_SESSION['id'] = $userinfo['id'];
-		$_SESSION['pseudo'] = $userinfo['pseudo'];
-		$_SESSION['mail'] = $userinfo['mail'];
+		$_SESSION['id'] = $result['idUser'];
+		$_SESSION['email'] = $result['emailUser'];
 		header("Location: profil.php?id=".$_SESSION['id']);
 	}
 	else
@@ -29,8 +26,6 @@ if(isset($_POST['formconnexion']))
 else
 {
 	$erreur = " Tous les champs doivent être complétés !";
-}
-
 }
 
 ?>
@@ -60,17 +55,17 @@ else
 				<table>
 					<tr>
 						<td align="center">
-				<input type="text" name="mailconnect" placeholder="Mail">
+				<input type="text" name="emailUser" placeholder="Mail">
 						</td>
 					</tr>
 					<tr>
 						<td align="center">
-				<input type="password" name="mdpconnect" placeholder="Mot de passe">
+				<input type="password" name="passwordUser" placeholder="Mot de passe">
 						</td>
 					</tr>
 					<tr>
 						<td align="center">
-				<input type="submit" name="formconnexion" value="Se connecter">
+				<button type="submit">Se connecter</button>
 						</td>
 					</tr>
 			</form>

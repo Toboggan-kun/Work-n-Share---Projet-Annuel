@@ -35,27 +35,28 @@ if(isset($_SESSION['id'])) {
    <head>
       <title>TUTO PHP</title>
       <meta charset="utf-8">
+      <link rel="stylesheet" href="edition.css"/>
    </head>
    <body>
       <div align="center">
          <h2>Edition de mon profil</h2>
-         <br/><br/>
-            <form method="POST" action="" enctype="multipart/form-data">
+         <table>
+            <tr>
+                  <td align="center">
+                     <a href="../index.php">Retourner au menu
+                  </td>
+               </tr>
+         </table>
+         <br/>
+
+            <form method="POST" action="">
                <table>
-                  <tr>
-                     <td align="right">
-                        <label for="pseudo">Pseudo :</label>
-                     </td>
-                     <td>
-                        <input type="text" name="newpseudo" placeholder="Pseudo" value="<?php echo $user['pseudo']; ?>" /><br /><br />
-                     </td>
-                  </tr>
                   <tr>
                      <td align="right">
                         <label for="mail">Mail :</label>
                      </td>
                      <td>
-                        <input type="text" name="newmail" placeholder="Mail" value="<?php echo $user['mail']; ?>" /><br /><br />
+                        <input type="text" name="newmail" placeholder="Mail" value="<?php echo $user['mail']; ?>" />
                      </td>
                   </tr>
                   <tr>
@@ -63,22 +64,24 @@ if(isset($_SESSION['id'])) {
                         <label for="mdp">Mot de passe :</label>
                      </td>
                      <td>
-                        <input type="password" name="newmdp1" placeholder="Mot de passe"/><br /><br />
+                        <input type="password" name="newmdp1" placeholder="Mot de passe"/><br />
                      </td>
                   </tr>
                   <tr>
                      <td align="right">
-                        <label>Confirmation - mot de passe :</label>
+                        <label for="mdp2">Confirmation - mot de passe :</label>
                      </td>
                      <td>
-                        <input type="password" name="newmdp2" placeholder="Confirmation du mot de passe" /><br /><br />
+                        <input type="password" name="newmdp2" placeholder="Confirmation du mot de passe" />
                      </td>
                   </tr>
                   <tr>
+               </table>
+               <table>
                      <td></td>
                      <td align="center">
-                        <br/>
-                           <input type="submit" value="Mettre à jour mon profil !" />
+                           <br/>
+                           <input type="submit" value="Mettre à jour mon profil" />
                         </td>
                      </tr>
                   </table>

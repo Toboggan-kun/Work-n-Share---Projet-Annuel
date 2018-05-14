@@ -4,12 +4,7 @@
 
 	<!-- container -->
 	<div class="container">
-
-		<ol class="breadcrumb">
-			<li><a href="index.php">Menu</a></li>
-			<li class="active">Abonnements</li>
-
-		</ol>
+<br/><br/>
 		<?php		
 		session_start();
 		include("fonctions-panier.php");

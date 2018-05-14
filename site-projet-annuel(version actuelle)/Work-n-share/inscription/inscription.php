@@ -1,34 +1,58 @@
 <?php
 session_start();
+ini_set("display_errors",0);
 
 $bdd = new PDO('mysql:host=127.0.0.1;dbname=worknshare', 'root', '');
 
-if(isset($_POST['forminscription']))
-{
-	$pseudo = htmlspecialchars($_POST['pseudo']);
-	$mail = htmlspecialchars($_POST['mail']);
-	$mail2 = htmlspecialchars($_POST['mail2']);
-	$mdp = sha1($_POST['mdp']);
+	$idUser = htmlspecialchars($_POST['idUser']);
+	$nameUser = htmlspecialchars($_POST['nameUser']);
+	$surnameUser = htmlspecialchars($_POST['surnameUser']);
+	$emailUser = htmlspecialchars($_POST['emailUser']);
+	$passwordUser = sha1($_POST['passwordUser']);
+	$addressUser = htmlspecialchars($_POST['addressUser']);
+	$postalCodeUser = htmlspecialchars($_POST['postalCodeUser']);
+	$cityUser = htmlspecialchars($_POST['cityUser']);
 	$mdp2 = sha1($_POST['mdp2']);
+	$subscription = '0';
+	$subscriptionDate = '0';
+	$isAdmin = '0';
+	$token = '0';
+	$isDeleted = '0';
+	$idCard = '0';
 
-	if(!empty($_POST['pseudo']) AND !empty($_POST['mail']) AND !empty($_POST['mail2']) AND !empty($_POST['mdp']) AND !empty($_POST['mdp2']))
+	if(!empty($_POST['nameUser']) AND !empty($_POST['surnameUser']) AND !empty($_POST['emailUser']) AND !empty($_POST['passwordUser']) AND !empty($_POST['mdp2'])) 
 	{
-		$pseudolength = strlen($pseudo);
-		if($pseudolength <= 255)
+		$namelength = strlen($nameUser);
+		$surnamelength = strlen($surnameUser);
+		if($namelength >= 2)
 		{
-			if($mail == $mail2)
+			if($surnamelength >= 2)
 			{
-				if(filter_var($mail, FILTER_VALIDATE_EMAIL))
+				if(filter_var($emailUser, FILTER_VALIDATE_EMAIL))
 				{
-					$reqmail = $bdd->prepare("SELECT * FROM users WHERE mail = ?");
-					$reqmail->execute(array($mail));
+					$reqmail = $bdd->prepare("SELECT * FROM user WHERE emailUser = ?");
+					$reqmail->execute(array($emailUser));
 					$mailexist = $reqmail->rowCount();
 					if($mailexist == 0)
 					{
-						if($mdp == $mdp2)
+						if($passwordUser == $mdp2)
 						{
-							$insertmbr = $bdd->prepare("INSERT INTO users(pseudo, mail, motdepasse) VALUES(?, ?, ?)");
-							$insertmbr->execute(array($pseudo, $mail, $mdp));
+							$insertmbr = $bdd->prepare("INSERT INTO user(nameUser, surnameUser, emailUser, passwordUser, addressUser, postalCodeUser, cityUser, subscription, subscriptionDate, isAdmin, token, isDeleted, idCard) VALUES(:nameUser, :surnameUser, :emailUser, :passwordUser, :addressUser, :postalCodeUser, :cityUser, :subscription, :subscriptionDate, :isAdmin, :token, :isDeleted, :idCard)");
+
+							$insertmbr->execute(["nameUser" => $nameUser, 
+							"surnameUser" => $surnameUser,
+							"emailUser" => $emailUser,
+							"passwordUser" => $passwordUser,
+							"addressUser" => $addressUser,
+							"postalCodeUser" => $postalCodeUser,
+							"cityUser" => $cityUser,
+							"subscription" => $subscription,
+							"subscriptionDate" => $subscriptionDate,
+							"isAdmin" => $isAdmin,
+							"token" => $token,
+							"isDeleted" => $isDeleted,
+							"idCard" => $idCard
+							]);
 							$erreur = "Votre compte a bien été créé ! <a href=\"connexion.php\"> Me connecter </a>";
 						}
 						else
@@ -48,19 +72,18 @@ if(isset($_POST['forminscription']))
 			}
 			else
 			{
-				$erreur = "Vos adresses mail ne correspondent pas !";
+				$erreur = "Un nom de moins de 3 lettres..?";
 			}
 		}
 		else
 		{
-			$erreur = "Votre pseudo ne doit pas dépasser 255 caractères !";
+			$erreur = "Un prénom de moins de 3 lettres..?";
 		}
 	}
 	else
 	{
 		$erreur = "Tous les champs doivent être complétés !";
 	}
-}
 
 ?>
 <html>
@@ -88,38 +111,39 @@ if(isset($_POST['forminscription']))
 					</tr>
 			</table>
 			<br />
+
 			<form method="POST" action="">
 				<table>
 					<tr>
 						<td align="right">
-							<label for="pseudo">Pseudo :</label>
+							<label for="nameUser">Prenom :</label>
 						</td>
 						<td>
-							<input type="text" placeholder="Votre pseudo" id="pseudo" name="pseudo" value="<?php if(isset($pseudo)) { echo $pseudo; } ?>" />
+							<input type="text" placeholder="Votre prenom" id="nameUser" name="nameUser" value="<?php if(isset($nameUser)) { echo $nameUser; } ?>" />
 						</td>
 					</tr>
 					<tr>
 						<td align="right">
-							<label for="mail">Mail :</label>
+							<label for="surnameUser">Nom :</label>
 						</td>
 						<td>
-							<input type="email" placeholder="Votre mail" id="mail" name="mail" value="<?php if(isset($mail)) { echo $mail; } ?>" />
+							<input type="text" placeholder="Votre nom" id="surnameUser" name="surnameUser" value="<?php if(isset($surnameUser)) { echo $surnameUser; } ?>" />
 						</td>
 					</tr>
 					<tr>
 						<td align="right">
-							<label for="mail2">Confirmation du mail :</label>
+							<label for="emailUser">Mail :</label>
 						</td>
 						<td>
-							<input type="email" placeholder="Confirmez votre mail" id="mail2" name="mail2" value="<?php if(isset($mail2)) { echo $mail2; } ?>" />
+							<input type="email" placeholder="Votre mail" id="emailUser" name="emailUser" value="<?php if(isset($emailUser)) { echo $emailUser; } ?>" />
 						</td>
 					</tr>
 					<tr>
 						<td align="right">
-							<label for="mdp">Mot de passe :</label>
+							<label for="passwordUser">Mot de passe :</label>
 						</td>
 						<td>
-							<input type="password" placeholder="Votre mot de passe" id="mdp" name="mdp" />
+							<input type="password" placeholder="Votre mot de passe" id="passwordUser" name="passwordUser" />
 						</td>
 					</tr>
 					<tr>
@@ -127,14 +151,40 @@ if(isset($_POST['forminscription']))
 							<label for="mdp2">Confirmation du mot de passe :</label>
 						</td>
 						<td>
-							<input type="password" placeholder="Confirmez votre mdp" id="mdp2" name="mdp2" />
+							<input type="password" placeholder="Confirmez votre mdp" id="passwordUser2" name="mdp2" />
 						</td>
 					</tr>
 					<tr>
+						<td align="right">
+							<label for="addressUser">Veuillez entrer votre adresse :</label>
+						</td>
+						<td>
+							<input type="text" placeholder="Veuillez entrer votre adresse" id="addressUser" name="addressUser" />
+						</td>
+					</tr>
+					<tr>
+						<td align="right">
+							<label for="postalCodeUser">Veuillez entrer votre code postal :</label>
+						</td>
+						<td>
+							<input type="text" placeholder="Veuillez entrer votre code postal" id="postalCodeUser" name="postalCodeUser" />
+						</td>
+					</tr>
+					<tr>
+						<td align="right">
+							<label for="cityUser">Veuillez entrer votre ville :</label>
+						</td>
+						<td>
+							<input type="text" placeholder="Veuillez entrer votre ville" id="cityUser" name="cityUser" />
+						</td>
+					</tr>
+					<tr>
+				</table>
+				<table>
 						<td></td>
-						<td align="left">
+						<td align="center">
 							<br />
-							<input type="submit" name="forminscription" value="Je m'inscris" />
+							<button type="submit">Je m'inscris</button>
 						</td>
 					</tr>
 				</table>
