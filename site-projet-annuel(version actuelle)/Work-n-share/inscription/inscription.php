@@ -39,7 +39,8 @@ $bdd = new PDO('mysql:host=127.0.0.1;dbname=worknshare', 'root', '');
 						{
 							$insertmbr = $bdd->prepare("INSERT INTO user(nameUser, surnameUser, emailUser, passwordUser, addressUser, postalCodeUser, cityUser, subscription, subscriptionDate, isAdmin, token, isDeleted, idCard) VALUES(:nameUser, :surnameUser, :emailUser, :passwordUser, :addressUser, :postalCodeUser, :cityUser, :subscription, :subscriptionDate, :isAdmin, :token, :isDeleted, :idCard)");
 
-							$insertmbr->execute(["nameUser" => $nameUser, 
+							$insertmbr->execute([
+							"nameUser" => $nameUser, 
 							"surnameUser" => $surnameUser,
 							"emailUser" => $emailUser,
 							"passwordUser" => $passwordUser,
